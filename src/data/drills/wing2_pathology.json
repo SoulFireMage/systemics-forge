@@ -1,0 +1,326 @@
+[
+  {
+    "id": "sys_w2_triage_ringroad",
+    "tier": "deterministic",
+    "drill_type": "leverage_triage",
+    "taxonomy_nodes": ["archetype_fixes_that_fail", "leverage_rules_incentives", "posiwid"],
+    "difficulty_elo": 1300,
+    "domain": "Civic & Urban Policy",
+    "register_tags": { "formal": "Fixes That Fail (Induced Demand)", "intuitive": "The Backfiring Fix: Widen the Road, Fill the Road" },
+    "prompt_instruction": "Triage the chronic problem in three steps: archetype, real output, highest-leverage fix.",
+    "passage_segments": [
+      { "id": "s1", "text": "The Ring Road has been jammed at rush hour for a decade.", "system_role": "chronic_symptom" },
+      { "id": "s2", "text": "Five years ago the city widened it from two lanes to three each way, and journeys were quicker for about eighteen months.", "system_role": "symptomatic_fix" },
+      { "id": "s3", "text": "Then traffic grew back: people who had taken the train or travelled off-peak switched to driving at rush hour, and new housing estates went up along the route.", "system_role": "delayed_side_effect" },
+      { "id": "s4", "text": "Today it is as jammed as ever, and the council proposes a fourth lane.", "system_role": "repeat_fix" }
+    ],
+    "steps": [
+      {
+        "id": "t1", "label": "Archetype",
+        "question": "Which archetype is running?",
+        "options": [
+          { "id": "a", "text": "Fixes That Fail", "is_correct": true, "feedback": "Yes. The fix (more lanes) relieves the symptom, then a delayed side effect (induced demand) brings it back." },
+          { "id": "b", "text": "Escalation", "is_correct": false, "feedback": "There are no two rivals reacting to each other here." },
+          { "id": "c", "text": "Eroding Goals", "is_correct": false, "feedback": "Nobody lowered the target journey time; they kept trying to meet it." },
+          { "id": "d", "text": "Success to the Successful", "is_correct": false, "feedback": "No two activities are competing for a shared pot of resources." }
+        ]
+      },
+      {
+        "id": "t2", "label": "POSIWID",
+        "question": "Judging only by what it reliably produces, what is this road system doing?",
+        "options": [
+          { "id": "a", "text": "Generating more car trips until the road is as congested as drivers will tolerate.", "is_correct": true, "feedback": "Yes. Each extra lane gets filled, so what the system produces is more driving at the same congestion." },
+          { "id": "b", "text": "Making journeys faster.", "is_correct": false, "feedback": "That’s the stated purpose. The output, after eighteen months, is the same jam." },
+          { "id": "c", "text": "Reducing traffic in the city.", "is_correct": false, "feedback": "Traffic grew." },
+          { "id": "d", "text": "Nothing: congestion is just bad luck.", "is_correct": false, "feedback": "A pattern that returns after every fix is structural, not luck." }
+        ]
+      },
+      {
+        "id": "t3", "label": "Leverage",
+        "question": "Which intervention has the highest leverage?",
+        "options": [
+          { "id": "a", "text": "Build the fourth lane.", "is_correct": false, "feedback": "Changing physical plumbing (#10). It’s the fix that already failed once.", "leverage_point": 10 },
+          { "id": "b", "text": "Raise the speed limit so traffic clears faster.", "is_correct": false, "feedback": "A parameter tweak (#12), and it makes driving more attractive still.", "leverage_point": 12 },
+          { "id": "c", "text": "Put live car-versus-train journey times on signs along the route.", "is_correct": false, "feedback": "Better information (#6) helps at the margin, but driving stays underpriced.", "leverage_point": 6 },
+          { "id": "d", "text": "Charge a peak-time road price, and put the revenue into the train service.", "is_correct": true, "feedback": "Changing the rules of the game (#5): drivers now pay for the congestion they cause, which weakens the induced-demand loop and funds the alternative.", "leverage_point": 5 }
+        ]
+      }
+    ],
+    "explanation_formal": "Capacity expansion is a symptomatic fix: it lowers travel time, which induces latent demand (mode shift, retimed trips, new development) with a delay, restoring congestion. Raising capacity again repeats the loop. Pricing the externality changes the payoff structure that drives demand.",
+    "explanation_intuitive": "A free road fills up to the point where it’s annoying enough to put people off. Widen it and it fills again. Make drivers pay for the jam they cause and the jam stops refilling."
+  },
+  {
+    "id": "sys_w2_triage_consultants",
+    "tier": "deterministic",
+    "drill_type": "leverage_triage",
+    "taxonomy_nodes": ["archetype_shifting_the_burden", "leverage_rules_incentives", "posiwid"],
+    "difficulty_elo": 1400,
+    "domain": "Organisational & Process Management",
+    "register_tags": { "formal": "Shifting the Burden to the Intervener", "intuitive": "Addiction to Quick Fixes: The Consultant Habit" },
+    "prompt_instruction": "Triage the chronic problem in three steps: archetype, real output, highest-leverage fix.",
+    "passage_segments": [
+      { "id": "s1", "text": "Whenever Harlow Insurance needs a pricing model updated, it hires an outside consultancy, which delivers within weeks.", "system_role": "symptomatic_fix" },
+      { "id": "s2", "text": "The in-house analytics team, never given these projects, has shrunk from twelve people to four as frustrated analysts left.", "system_role": "atrophying_capacity" },
+      { "id": "s3", "text": "Each year the consultancy bill rises, because there is no longer anyone inside who could do the work.", "system_role": "growing_dependence" },
+      { "id": "s4", "text": "The CFO says the consultants are “simply better at this”.", "system_role": "mental_model" }
+    ],
+    "steps": [
+      {
+        "id": "t1", "label": "Archetype",
+        "question": "Which archetype is running?",
+        "options": [
+          { "id": "a", "text": "Shifting the Burden", "is_correct": true, "feedback": "Yes. The quick fix (consultants) works, and using it erodes the fundamental solution (in-house capability), which deepens the dependence." },
+          { "id": "b", "text": "Fixes That Fail", "is_correct": false, "feedback": "A close cousin. In Fixes That Fail the side effect makes the original problem worse. Here the side effect is that the alternative solution withers away." },
+          { "id": "c", "text": "Escalation", "is_correct": false, "feedback": "There are no rivals reacting to each other." },
+          { "id": "d", "text": "Tragedy of the Commons", "is_correct": false, "feedback": "No shared resource is being drawn down by many users." }
+        ]
+      },
+      {
+        "id": "t2", "label": "POSIWID",
+        "question": "Judging by what it reliably produces, what is this arrangement for?",
+        "options": [
+          { "id": "a", "text": "Producing dependence on the consultancy.", "is_correct": true, "feedback": "That is its steady output: a shrinking internal team and a growing bill." },
+          { "id": "b", "text": "Producing cheaper analysis.", "is_correct": false, "feedback": "The bill rises every year." },
+          { "id": "c", "text": "Producing better pricing models.", "is_correct": false, "feedback": "Maybe in the short term, but the reliable long-term output is dependence." },
+          { "id": "d", "text": "Building a stronger in-house team.", "is_correct": false, "feedback": "The team has shrunk by two-thirds." }
+        ]
+      },
+      {
+        "id": "t3", "label": "Leverage",
+        "question": "Which intervention has the highest leverage?",
+        "options": [
+          { "id": "a", "text": "Negotiate a 15% discount with the consultancy.", "is_correct": false, "feedback": "A parameter (#12). Cheaper dependence is still dependence.", "leverage_point": 12 },
+          { "id": "b", "text": "Raise the analytics team’s budget by 20%.", "is_correct": false, "feedback": "Also a parameter (#12). Money alone doesn’t route the work back inside.", "leverage_point": 12 },
+          { "id": "c", "text": "Report to the board each quarter how much of the modelling the company could do without outside help.", "is_correct": false, "feedback": "A useful information flow (#6) that makes the atrophy visible, but it doesn’t change who does the work.", "leverage_point": 6 },
+          { "id": "d", "text": "Make it a rule that every engagement is co-delivered with in-house analysts and ends with a handover the team must run alone.", "is_correct": true, "feedback": "A rule change (#5) that turns each use of the quick fix into practice for the fundamental one.", "leverage_point": 5 }
+        ]
+      }
+    ],
+    "explanation_formal": "Shifting the Burden: a symptomatic solution (external consultants) relieves the problem symptom, reducing pressure to apply the fundamental solution (internal capability). A side-effect loop atrophies that capability, increasing reliance on the symptomatic solution.",
+    "explanation_intuitive": "Every time someone else does it for you, you get a bit worse at doing it yourself. Make each outside job a lesson as well as a delivery and the habit starts to unwind."
+  },
+  {
+    "id": "sys_w2_triage_testcluster",
+    "tier": "deterministic",
+    "drill_type": "leverage_triage",
+    "taxonomy_nodes": ["archetype_tragedy_commons", "leverage_rules_incentives", "posiwid"],
+    "difficulty_elo": 1350,
+    "domain": "Software Maintenance",
+    "register_tags": { "formal": "Tragedy of the Commons", "intuitive": "The Overgrazed Test Cluster" },
+    "prompt_instruction": "Triage the chronic problem in three steps: archetype, real output, highest-leverage fix.",
+    "passage_segments": [
+      { "id": "s1", "text": "Twenty teams at Fernhill share one pool of 200 test machines.", "system_role": "shared_resource" },
+      { "id": "s2", "text": "When builds got slow, teams began reserving extra machines “just in case”, and some now run their full test suite on every save.", "system_role": "individual_gain" },
+      { "id": "s3", "text": "Each team gets faster builds by grabbing more, while the slowdown is spread across all twenty teams.", "system_role": "distributed_cost" },
+      { "id": "s4", "text": "Average queue time has gone from two minutes to forty.", "system_role": "depletion" }
+    ],
+    "steps": [
+      {
+        "id": "t1", "label": "Archetype",
+        "question": "Which archetype is running?",
+        "options": [
+          { "id": "a", "text": "Tragedy of the Commons", "is_correct": true, "feedback": "Yes. Each user captures the gain of taking more, while the cost is shared by everyone." },
+          { "id": "b", "text": "Escalation", "is_correct": false, "feedback": "Close, because teams react to slowness. But the defining feature is one shared, limited pool, not two sides tracking each other’s position." },
+          { "id": "c", "text": "Success to the Successful", "is_correct": false, "feedback": "Nobody is winning resources because of past success." },
+          { "id": "d", "text": "Eroding Goals", "is_correct": false, "feedback": "No target has been lowered, at least not yet." }
+        ]
+      },
+      {
+        "id": "t2", "label": "POSIWID",
+        "question": "Judging by what it reliably produces, how does this system allocate machines?",
+        "options": [
+          { "id": "a", "text": "To whoever grabs fastest, not to the work that matters most.", "is_correct": true, "feedback": "That’s its real allocation rule." },
+          { "id": "b", "text": "Fairly, since everyone has equal access.", "is_correct": false, "feedback": "Equal access to an unpriced resource rewards whoever takes most." },
+          { "id": "c", "text": "To the most important projects.", "is_correct": false, "feedback": "Nothing in the system knows which projects are important." },
+          { "id": "d", "text": "Efficiently: forty-minute queues prove the machines are fully used.", "is_correct": false, "feedback": "Fully used isn’t well used. Much of that load is “just in case” runs." }
+        ]
+      },
+      {
+        "id": "t3", "label": "Leverage",
+        "question": "Which intervention has the highest leverage?",
+        "options": [
+          { "id": "a", "text": "Buy another 100 machines.", "is_correct": false, "feedback": "A bigger buffer (#11). Demand will grow to fill it, because nothing changed the incentive.", "leverage_point": 11 },
+          { "id": "b", "text": "Cap every team at 10 machines.", "is_correct": false, "feedback": "A quota is a number (#12). It ignores which teams need more and invites gaming.", "leverage_point": 12 },
+          { "id": "c", "text": "Show each team a live dashboard of the machines it holds and the queue time it adds for others.", "is_correct": false, "feedback": "Good information (#6), but it relies on goodwill against a standing incentive.", "leverage_point": 6 },
+          { "id": "d", "text": "Charge each team’s budget for the machine-hours it uses, and let teams keep what they save.", "is_correct": true, "feedback": "A change to the rules and incentives (#5): the cost of grabbing now falls on the grabber.", "leverage_point": 5 }
+        ]
+      }
+    ],
+    "explanation_formal": "Each team’s reinforcing loop (more machines → faster own builds) draws on a common resource whose degradation is externalised across all users. Restoring the link between individual use and its cost, by pricing, property rights or self-governance, addresses the payoff structure itself.",
+    "explanation_intuitive": "If it’s free and shared, grabbing more is always the smart move for you and the dumb move for everyone. Make each team feel what it costs and the grabbing stops."
+  },
+  {
+    "id": "sys_w2_eroding_callcentre",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["archetype_eroding_goals", "posiwid"],
+    "difficulty_elo": 1200,
+    "domain": "Organisational & Process Management",
+    "register_tags": { "formal": "Eroding Goals (Drift to Low Performance)", "intuitive": "The Boiling Frog" },
+    "prompt_instruction": "Click the sentence where the gap starts being closed by moving the goal instead of improving performance.",
+    "passage_segments": [
+      { "id": "s1", "text": "When Kestrel Energy opened its call centre, the target was to answer 90% of calls within two minutes.", "system_role": "original_goal" },
+      { "id": "s2", "text": "After a hard winter, the target was “temporarily” relaxed to 80% within five minutes.", "system_role": "goal_erosion" },
+      { "id": "s3", "text": "The team hit the new target, and nobody ever changed it back.", "system_role": "ratchet" },
+      { "id": "s4", "text": "Three years on, the target is 70% within ten minutes, and the annual report says service targets are “consistently met”.", "system_role": "normalised_drift" }
+    ],
+    "correct_target_id": "s2",
+    "follow_up_question": {
+      "question": "What would have closed the gap the other way?",
+      "options": [
+        { "id": "o1", "text": "Hold the original target and fix capacity: staffing, and the causes of repeat calls.", "is_correct": true, "feedback": "Yes. Close the gap by improving the actual state, and keep the goal anchored outside the system’s recent performance." },
+        { "id": "o2", "text": "Relax the target a little further so staff aren’t stressed.", "is_correct": false, "feedback": "That’s the erosion loop again." },
+        { "id": "o3", "text": "Drop the target altogether.", "is_correct": false, "feedback": "Removing the goal removes the gap, and with it any pressure to improve." },
+        { "id": "o4", "text": "Report that targets are met.", "is_correct": false, "feedback": "True, and useless. The report measures the erosion, not the service." }
+      ]
+    },
+    "explanation_formal": "Two balancing loops can close a performance gap: corrective action that improves the state, or adjustment of the goal towards the state. When goal adjustment is quicker or cheaper, standards drift downward, each step looking reasonable against the last.",
+    "explanation_intuitive": "Each step looks small and sensible. Add them up and “answer fast” has quietly become “answer eventually”, and the report says everything is fine."
+  },
+  {
+    "id": "sys_w2_escalation_pricewar",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["archetype_escalation", "leverage_rules_incentives"],
+    "difficulty_elo": 1250,
+    "domain": "Macroeconomics & Markets",
+    "register_tags": { "formal": "Escalation", "intuitive": "The Arms Race (at the Milk Aisle)" },
+    "prompt_instruction": "Click the sentence that reveals the structure locking both sides into escalation.",
+    "passage_segments": [
+      { "id": "s1", "text": "When Fresco cut its four-pint milk to 89p to win shoppers, Valumart matched the price within a day.", "system_role": "first_move" },
+      { "id": "s2", "text": "Fresco answered with 79p, and Valumart went to 75p.", "system_role": "escalation_steps" },
+      { "id": "s3", "text": "Both chains’ pricing teams work to the same rule, “never be undersold”, so every cut by one is the other’s signal to cut.", "system_role": "coupled_balancing_loops" },
+      { "id": "s4", "text": "Both now sell milk at a loss, and dairy farmers are being squeezed to make up the difference.", "system_role": "shared_harm" }
+    ],
+    "correct_target_id": "s3",
+    "follow_up_question": {
+      "question": "What most directly breaks the escalation?",
+      "options": [
+        { "id": "o1", "text": "One chain drops “never be undersold” and competes on something that doesn’t trigger a matching response, such as quality or service.", "is_correct": true, "feedback": "Yes. The engine is each side’s goal being defined relative to the other. Change that goal and the coupling breaks." },
+        { "id": "o2", "text": "Cut deeper to win decisively.", "is_correct": false, "feedback": "The other side’s rule guarantees a response. That just turns the engine faster." },
+        { "id": "o3", "text": "Blame Fresco’s chief executive for starting it.", "is_correct": false, "feedback": "Who moved first doesn’t matter; the structure would escalate whoever started." },
+        { "id": "o4", "text": "Ask farmers to accept lower prices.", "is_correct": false, "feedback": "That pushes the cost outside the boundary; the escalation carries on." }
+      ]
+    },
+    "explanation_formal": "Escalation is two balancing loops coupled through relative position: each party acts to close the gap between its position and the other’s, so each corrective action widens the other’s gap. The leverage is in the goal definition (relative rather than absolute).",
+    "explanation_intuitive": "If my rule is “always beat you” and your rule is “always beat me”, we’re in a race neither can win. Change one rule and the race stops."
+  },
+  {
+    "id": "sys_w2_success_productlines",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["archetype_success_to_successful", "linear_attribution_bias"],
+    "difficulty_elo": 1350,
+    "domain": "Business",
+    "register_tags": { "formal": "Success to the Successful", "intuitive": "The Rich Get Richer" },
+    "prompt_instruction": "Click the sentence where an early lead turns into a self-reinforcing advantage.",
+    "passage_segments": [
+      { "id": "s1", "text": "Two product lines at Arlen Tools share one engineering team: the established Pro range and the new Lite range.", "system_role": "shared_resource" },
+      { "id": "s2", "text": "Pro launched first and sold better, so quarterly planning gave it most of the engineers.", "system_role": "allocation_rule" },
+      { "id": "s3", "text": "With more engineers, Pro shipped more features and sold better still, while Lite’s few engineers fell further behind each quarter.", "system_role": "compounding_advantage" },
+      { "id": "s4", "text": "The board has concluded that Lite “was never a good idea” and plans to cancel it.", "system_role": "linear_attribution" }
+    ],
+    "correct_target_id": "s3",
+    "follow_up_question": {
+      "question": "Does Lite’s decline prove it was a bad idea?",
+      "options": [
+        { "id": "o1", "text": "Not on this evidence: allocating by past sales starved it, so its results say more about the rule than about the product.", "is_correct": true, "feedback": "Yes. The loser of a success-to-the-successful loop looks like a weak product whether it was or not." },
+        { "id": "o2", "text": "Yes. The market has spoken.", "is_correct": false, "feedback": "The market spoke about a product with a fraction of the engineers." },
+        { "id": "o3", "text": "Yes, because Pro was always the better product.", "is_correct": false, "feedback": "Possibly, but nothing in the passage separates product quality from resourcing." },
+        { "id": "o4", "text": "No, Pro’s team sabotaged it.", "is_correct": false, "feedback": "There’s no villain here. The allocation rule does the work on its own." }
+      ]
+    },
+    "explanation_formal": "Two reinforcing loops coupled through a shared resource: allocation in proportion to past success raises the leader’s future success and lowers the laggard’s. Outcomes reflect initial conditions and the allocation rule as much as intrinsic merit.",
+    "explanation_intuitive": "Give the most to whoever did best last time, and whoever did best last time will keep doing best. That tells you about the rule, not the runners."
+  },
+  {
+    "id": "sys_w2_goodhart_bugbonus",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["goodhart_rule_beating", "leverage_parameters"],
+    "difficulty_elo": 1200,
+    "domain": "Software Maintenance",
+    "register_tags": { "formal": "Goodhart’s Law / Rule Beating", "intuitive": "Gaming the Scoreboard" },
+    "prompt_instruction": "Click the sentence that shows the measure replacing the purpose.",
+    "passage_segments": [
+      { "id": "s1", "text": "To improve quality, Tarnwell’s engineering director began paying a £50 bonus for every bug ticket closed.", "system_role": "metric_target" },
+      { "id": "s2", "text": "Ticket closures tripled in the first quarter.", "system_role": "metric_improves" },
+      { "id": "s3", "text": "An audit found that most closed tickets were trivial issues opened and closed by the same engineers, while severe bugs sat untouched.", "system_role": "gaming" },
+      { "id": "s4", "text": "The director called this “disappointing behaviour” and plans to raise the bonus to £75, for severe bugs only.", "system_role": "repeat_parameter_tweak" }
+    ],
+    "correct_target_id": "s3",
+    "follow_up_question": {
+      "question": "What will the director’s new plan most likely produce?",
+      "options": [
+        { "id": "o1", "text": "A new game: engineers arguing bugs up to “severe”. It’s a parameter tweak on the same broken rule.", "is_correct": true, "feedback": "Yes. Changing the number doesn’t change the structure: paying per ticket still rewards the ticket, not the quality." },
+        { "id": "o2", "text": "Fewer severe bugs, as intended.", "is_correct": false, "feedback": "Only if severity can’t be gamed, and it can." },
+        { "id": "o3", "text": "Nothing. Engineers will ignore the bonus.", "is_correct": false, "feedback": "Sentence 2 shows they respond strongly to bonuses." },
+        { "id": "o4", "text": "Better morale.", "is_correct": false, "feedback": "Not the point. The structure keeps rewarding the scoreboard." }
+      ]
+    },
+    "explanation_formal": "Once a measure becomes a target, agents optimise the measure through whatever path is cheapest, decoupling it from the quality it was chosen to indicate. Adjusting the target’s parameters (amount, scope) leaves the rule-beating structure intact.",
+    "explanation_intuitive": "Pay for tickets and you get tickets. Pay more for “severe” tickets and you get severe-looking tickets. Quality was never on the scoreboard."
+  },
+  {
+    "id": "sys_w2_iso_burden_soil",
+    "tier": "deterministic",
+    "drill_type": "isomorphic_match",
+    "taxonomy_nodes": ["archetype_shifting_the_burden", "delays_oscillation"],
+    "difficulty_elo": 1350,
+    "domain": "Cross-domain",
+    "register_tags": { "formal": "Shifting the Burden (Capacity Atrophy)", "intuitive": "The Crutch That Weakens the Leg" },
+    "prompt_instruction": "Find the story with the same skeleton as the source.",
+    "source_narrative": {
+      "domain": "Agronomy & Soil Health",
+      "text": "When crop yields dip because the soil is compacted and short of microbes, a farm applies heavy doses of synthetic nitrogen. The harvest rebounds that autumn, removing the urgency to rotate cover crops or rebuild organic matter. Without root humus, the soil’s water retention and microbial life decline further, and the next spring the farm must buy 30% more fertiliser just to hit the same yield."
+    },
+    "candidates": [
+      { "id": "c1", "domain": "Team Management & Code Reviews", "text": "Whenever a junior engineer’s code is shaky, the tech lead quietly rewrites it before release. Releases go out on time, so nobody makes time for mentoring. The juniors never learn, and a year later the lead is rewriting twice as much code.", "is_correct": true, "feedback": "Same skeleton: a quick fix (rewriting) relieves the symptom, removes pressure for the real fix (mentoring), and the system’s own capacity (the juniors’ skill) withers, deepening dependence." },
+      { "id": "c2", "domain": "Geopolitics", "text": "Two neighbouring states each expanded their navies in response to the other’s last expansion, until both were spending a fifth of their budgets on ships.", "is_correct": false, "feedback": "That’s escalation: two sides reacting to each other’s relative position." },
+      { "id": "c3", "domain": "Livestock Farming", "text": "Farmers across a region each fed antibiotics to their livestock to speed growth. Each farm gained a little, but resistant bacteria spread to every herd.", "is_correct": false, "feedback": "That’s a tragedy of the commons: private gains, shared depletion (here, of antibiotic effectiveness)." },
+      { "id": "c4", "domain": "Professional Sport", "text": "A club that won the league attracted the best young players, which helped it win again, while its rivals’ academies emptied.", "is_correct": false, "feedback": "That’s success to the successful: early winners capture the shared resource." }
+    ],
+    "follow_up_question": {
+      "question": "What is the shared skeleton?",
+      "options": [
+        { "id": "o1", "text": "A quick fix relieves the symptom, and relying on it erodes the capacity needed for the real fix.", "is_correct": true, "feedback": "Yes: Shifting the Burden." },
+        { "id": "o2", "text": "A fix backfires and directly worsens the original problem.", "is_correct": false, "feedback": "That’s Fixes That Fail. Here the damage is to the alternative solution, not the symptom itself." },
+        { "id": "o3", "text": "A shared resource is overused.", "is_correct": false, "feedback": "Neither story has a commons." },
+        { "id": "o4", "text": "A goal is quietly lowered.", "is_correct": false, "feedback": "The farm and the lead both hold their targets; they just buy them more dearly." }
+      ]
+    },
+    "explanation_formal": "Both narratives instantiate Shifting the Burden: a balancing loop through a symptomatic solution (fertiliser; rewriting), a slower balancing loop through the fundamental solution (soil rebuilding; mentoring), and a delayed side-effect loop in which use of the symptomatic solution degrades the fundamental capacity.",
+    "explanation_intuitive": "Fertiliser does the soil’s job; the lead does the juniors’ job. In both, the more the crutch carries, the weaker the leg gets."
+  },
+  {
+    "id": "sys_w2_iso_goodhart_rats",
+    "tier": "deterministic",
+    "drill_type": "isomorphic_match",
+    "taxonomy_nodes": ["goodhart_rule_beating", "posiwid"],
+    "difficulty_elo": 1300,
+    "domain": "Cross-domain",
+    "register_tags": { "formal": "Perverse Incentive (Cobra Effect)", "intuitive": "Paying for Rat Tails" },
+    "prompt_instruction": "Find the story with the same skeleton as the source.",
+    "source_narrative": {
+      "domain": "Colonial History",
+      "text": "In 1902, Hanoi’s colonial government paid a bounty for every rat tail handed in, to fight a plague of rats. Officials soon noticed tailless rats in the streets: catchers were cutting off the tails and releasing the rats to breed. According to historian Michael Vann, some people were even found farming rats."
+    },
+    "candidates": [
+      { "id": "c1", "domain": "Software Engineering", "text": "A company paid developers a bonus for every bug they fixed. Within months, some were quietly shipping sloppier code, knowing they would be paid to fix it later.", "is_correct": true, "feedback": "Same skeleton: rewarding a proxy for removing a problem made people produce more of the problem to earn the reward." },
+      { "id": "c2", "domain": "Professional Cycling", "text": "Two rival teams each bought lighter bikes after the other did, until both had spent their budgets and neither was any faster.", "is_correct": false, "feedback": "That’s escalation, not a gamed measure." },
+      { "id": "c3", "domain": "Hospital Management", "text": "A hospital cut new admissions by 10% and declared its overcrowding solved, but its wards stayed full because discharges were still slower than admissions.", "is_correct": false, "feedback": "That’s a bathtub error: a lower inflow mistaken for a falling stock." },
+      { "id": "c4", "domain": "Lake Ecology", "text": "A lake absorbed fertiliser run-off for decades with no visible change, until it suddenly turned green and the fish died.", "is_correct": false, "feedback": "That’s a buffer masking decay until a threshold." }
+    ],
+    "follow_up_question": {
+      "question": "Under POSIWID, what was the rat bounty actually for?",
+      "options": [
+        { "id": "o1", "text": "Producing rat tails, by whatever means was cheapest, including breeding rats.", "is_correct": true, "feedback": "Yes. Judge the scheme by its output: it reliably produced tails, not fewer rats." },
+        { "id": "o2", "text": "Reducing the rat population.", "is_correct": false, "feedback": "That was the stated purpose, not the reliable output." },
+        { "id": "o3", "text": "Employing rat catchers.", "is_correct": false, "feedback": "A side effect, not what the scheme rewarded." },
+        { "id": "o4", "text": "It had no purpose; people just behaved badly.", "is_correct": false, "feedback": "The behaviour was a rational response to the incentive. That’s the point." }
+      ]
+    },
+    "explanation_formal": "Rewarding an observable proxy (tails; bug fixes) rather than the underlying state (rat population; code quality) creates an incentive to manufacture the proxy, including by increasing the very problem the scheme targets. This is sometimes called the cobra effect.",
+    "explanation_intuitive": "If you pay for evidence that a problem was removed, people will find it cheaper to make more of the problem. Pay for the outcome, or don’t pay per item at all."
+  }
+]

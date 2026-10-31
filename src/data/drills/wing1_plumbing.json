@@ -1,0 +1,486 @@
+[
+  {
+    "id": "sys_w1_0018",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["sterman_bathtub_paradox", "stock_flow_dissection"],
+    "difficulty_elo": 1320,
+    "domain": "Civic & Urban Policy",
+    "register_tags": {
+      "formal": "Stock-Flow Failure / Non-Zero Net Inflow",
+      "intuitive": "The Bathtub Trap (Slowing the Faucet ≠ Draining the Tub)"
+    },
+    "prompt_instruction": "Click the sentence where the author commits the Bathtub Fallacy: confusing a drop in the inflow rate with a drop in the total stock.",
+    "passage_segments": [
+      { "id": "s1", "text": "For the past two years, our municipal housing court cleared exactly 200 eviction cases per month while 400 new cases were filed monthly.", "system_role": "baseline_flows" },
+      { "id": "s2", "text": "Following our mediation reform in January, new monthly filings have dropped sharply from 400 down to 250 per month.", "system_role": "inflow_deceleration" },
+      { "id": "s3", "text": "Because new filings have fallen by nearly 40%, the total backlog of families waiting for a court date is finally shrinking.", "system_role": "target_bathtub_error" },
+      { "id": "s4", "text": "Court staffing and monthly case clearances remain unchanged at 200 per month.", "system_role": "outflow_constraint" }
+    ],
+    "correct_target_id": "s3",
+    "follow_up_question": {
+      "question": "Based strictly on the numbers in the passage, what is actually happening to the total backlog (the stock) right now?",
+      "options": [
+        { "id": "o1", "text": "The backlog is shrinking by 150 cases per month.", "is_correct": false, "feedback": "150 is the reduction in the inflow rate (from 400 to 250), not the net change in the stock." },
+        { "id": "o2", "text": "The backlog is still growing by 50 cases every single month.", "is_correct": true, "feedback": "Exactly. Inflow (250/month) still exceeds outflow (200/month). Slowing the faucet only slows how fast the tub fills; the water level still rises." },
+        { "id": "o3", "text": "The backlog is now stable.", "is_correct": false, "feedback": "A stock is stable only when inflow equals outflow. 250 in and 200 out is not equal." },
+        { "id": "o4", "text": "There’s no way to tell without knowing the size of the backlog.", "is_correct": false, "feedback": "You need the starting size to know the level, but not the direction. The direction and speed of change come from the flows alone: +50 a month." }
+      ]
+    },
+    "explanation_formal": "A stock accumulates the net difference between inflow and outflow over time. As long as inflow (250) exceeds outflow (200), the first derivative of the stock remains positive (+50/month), even though the second derivative (the change in inflow) is negative.",
+    "explanation_intuitive": "If a bathtub drains at 200 litres an hour and you turn the tap down from 400 to 250 litres an hour, the water level is still rising by 50 litres an hour. It only stops rising when the tap is turned down to 200 or below."
+  },
+  {
+    "id": "sys_w1_stock_hospital",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["stock_flow_dissection", "sterman_bathtub_paradox"],
+    "difficulty_elo": 1050,
+    "domain": "Public Health",
+    "register_tags": { "formal": "Stock vs. Flow Identification", "intuitive": "The Freeze-Frame Test" },
+    "prompt_instruction": "Click the sentence that describes a stock: something that would still be there if you froze time.",
+    "passage_segments": [
+      { "id": "s1", "text": "Northgate General admitted about 140 patients a day through its emergency department last winter.", "system_role": "inflow" },
+      { "id": "s2", "text": "On a typical morning, 610 of its 640 beds were already occupied.", "system_role": "stock" },
+      { "id": "s3", "text": "Discharges ran at about 135 a day, held back by a shortage of community care places.", "system_role": "outflow" },
+      { "id": "s4", "text": "Board members kept asking why the hospital “felt fuller every week”.", "system_role": "perceived_symptom" }
+    ],
+    "correct_target_id": "s2",
+    "follow_up_question": {
+      "question": "If admissions and discharges stay at these rates, roughly how long until all 640 beds are full?",
+      "options": [
+        { "id": "o1", "text": "About 6 days.", "is_correct": true, "feedback": "Right. 30 free beds, filling at a net 5 a day (140 in, 135 out): 30 ÷ 5 = 6 days." },
+        { "id": "o2", "text": "Never. 135 out is close enough to 140 in.", "is_correct": false, "feedback": "Close is not equal. A small net inflow, held long enough, fills any stock." },
+        { "id": "o3", "text": "Less than a day, because 140 patients a day is far more than 30 free beds.", "is_correct": false, "feedback": "That ignores the outflow. Only the net flow (140 − 135 = 5 a day) fills the beds." },
+        { "id": "o4", "text": "About 22 days.", "is_correct": false, "feedback": "Check the arithmetic: free beds ÷ net daily inflow = 30 ÷ 5." }
+      ]
+    },
+    "explanation_formal": "Occupied beds are a stock (a level measured at an instant); admissions and discharges are flows (rates per day). The stock changes at the net rate, here +5 beds a day.",
+    "explanation_intuitive": "Freeze time and ask: what’s still there? The patients in beds are. The admissions and discharges aren’t: they only exist as so-many-per-day."
+  },
+  {
+    "id": "sys_w1_stock_techdebt",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["stock_flow_dissection", "reinforcing_vs_balancing"],
+    "difficulty_elo": 1150,
+    "domain": "Software Maintenance",
+    "register_tags": { "formal": "Outflow Identification", "intuitive": "Find the Drain" },
+    "prompt_instruction": "Click the sentence that describes the outflow: the rate at which the stock is drained.",
+    "passage_segments": [
+      { "id": "s1", "text": "Our team logs about 12 shortcuts (“we’ll fix it later” tickets) every sprint.", "system_role": "inflow" },
+      { "id": "s2", "text": "The tech-debt register now holds 340 open items.", "system_role": "stock" },
+      { "id": "s3", "text": "We close roughly 5 of those items per sprint on clean-up days.", "system_role": "outflow" },
+      { "id": "s4", "text": "Every open item makes new features a little slower to build, so deadlines get tighter and shortcuts more tempting.", "system_role": "reinforcing_feedback" }
+    ],
+    "correct_target_id": "s3",
+    "follow_up_question": {
+      "question": "Sentence 4 adds a loop. What kind, and what does it do to the register?",
+      "options": [
+        { "id": "o1", "text": "A reinforcing loop: more debt → slower work → tighter deadlines → more shortcuts → more debt. Growth will speed up, not hold at +7 a sprint.", "is_correct": true, "feedback": "Yes. The inflow depends on the stock, so the snowball accelerates." },
+        { "id": "o2", "text": "A balancing loop: slower work naturally limits how much debt can pile up.", "is_correct": false, "feedback": "Slower work increases pressure to cut corners here; nothing pushes the register back towards a goal." },
+        { "id": "o3", "text": "No loop: the register simply grows by 7 a sprint forever.", "is_correct": false, "feedback": "+7 is today’s net rate, but sentence 4 links the stock back to the inflow, which closes a loop." },
+        { "id": "o4", "text": "A balancing loop that will shrink the register once clean-up days catch up.", "is_correct": false, "feedback": "Clean-up days are a fixed outflow of 5; nothing in the passage makes them grow as debt grows." }
+      ]
+    },
+    "explanation_formal": "Inflow 12/sprint, outflow 5/sprint, net +7/sprint. Because the stock feeds back into the inflow (debt → slower delivery → schedule pressure → more shortcuts), the structure is a reinforcing loop and the net inflow itself will rise.",
+    "explanation_intuitive": "The drain is the clean-up days. The tap is the shortcuts. And the tap opens wider the fuller the tub gets, so this isn’t a steady leak, it’s a snowball."
+  },
+  {
+    "id": "sys_w1_bathtub_defects",
+    "tier": "deterministic",
+    "drill_type": "bathtub_puzzle",
+    "taxonomy_nodes": ["sterman_bathtub_paradox", "stock_flow_dissection"],
+    "difficulty_elo": 1250,
+    "domain": "Software Maintenance",
+    "register_tags": { "formal": "Net Flow Inference", "intuitive": "Is the Tub Still Filling?" },
+    "prompt_instruction": "Read the report and work out what the open-defect backlog is really doing.",
+    "passage_segments": [
+      { "id": "s1", "text": "Quarterly engineering review: new defect reports dropped by 35% this quarter, from 100 a week to 65 a week.", "system_role": "inflow_deceleration" },
+      { "id": "s2", "text": "Patch deployments held steady at 50 fixes a week, each closing one defect.", "system_role": "outflow" },
+      { "id": "s3", "text": "The VP’s summary slide reads: “Defect crisis turning the corner.”", "system_role": "target_bathtub_error" }
+    ],
+    "steps": [
+      {
+        "id": "t1", "label": "Direction",
+        "question": "What is the open-defect backlog doing right now?",
+        "options": [
+          { "id": "a", "text": "Rising, by 15 defects a week.", "is_correct": true, "feedback": "65 in, 50 out: the backlog still gains 15 a week. It is rising more slowly than before (it was +50 a week), but it is rising." },
+          { "id": "b", "text": "Falling, by 35 defects a week.", "is_correct": false, "feedback": "35 is the drop in the inflow rate, not a change in the stock." },
+          { "id": "c", "text": "Falling, by 15 defects a week.", "is_correct": false, "feedback": "Right size, wrong sign. Inflow (65) is still bigger than outflow (50)." },
+          { "id": "d", "text": "Peaking right now.", "is_correct": false, "feedback": "A stock peaks when inflow equals outflow. 65 is not 50 yet." }
+        ]
+      },
+      {
+        "id": "t2", "label": "Peak condition",
+        "question": "At what exact condition will the backlog reach its maximum?",
+        "options": [
+          { "id": "a", "text": "When new reports fall to 50 a week, matching the fix rate.", "is_correct": true, "feedback": "Yes. The peak is the moment net flow hits zero. After that, if reports keep falling, the backlog shrinks." },
+          { "id": "b", "text": "When reports have fallen for two quarters in a row.", "is_correct": false, "feedback": "How long the inflow has been falling doesn’t matter. Only inflow versus outflow does." },
+          { "id": "c", "text": "When the backlog reaches zero.", "is_correct": false, "feedback": "That would be the minimum, not the maximum." },
+          { "id": "d", "text": "It already peaked when reports started falling.", "is_correct": false, "feedback": "That’s the bathtub trap itself: treating the peak of the inflow as the peak of the stock." }
+        ]
+      },
+      {
+        "id": "t3", "label": "Rewrite the slide",
+        "question": "Which headline is accurate?",
+        "options": [
+          { "id": "a", "text": "“Inflow slowing, but backlog still growing 15/week. It peaks when reports fall to 50/week or fixes rise above 65/week.”", "is_correct": true, "feedback": "Accurate, and it tells the reader the two levers: cut the inflow further or raise the outflow." },
+          { "id": "b", "text": "“Defects down 35%.”", "is_correct": false, "feedback": "True of the inflow, but readers will hear it as the backlog." },
+          { "id": "c", "text": "“Backlog shrinking; fix team can be reduced.”", "is_correct": false, "feedback": "Cutting the outflow would make the backlog grow faster." },
+          { "id": "d", "text": "“No change: fix rate flat at 50.”", "is_correct": false, "feedback": "The backlog is changing; the flat number is only the outflow." }
+        ]
+      }
+    ],
+    "ledger": [
+      { "label": "Inflow (new reports)", "value": "65 / week" },
+      { "label": "Outflow (fixes)", "value": "50 / week" },
+      { "label": "Net change in backlog", "value": "+15 / week" },
+      { "label": "Backlog peaks when", "value": "inflow ≤ 50 / week" }
+    ],
+    "explanation_formal": "The backlog’s rate of change equals inflow minus outflow (65 − 50 = +15/week). A falling inflow lowers the second derivative but leaves the first derivative positive until inflow drops to the outflow rate.",
+    "explanation_intuitive": "The tap was turned down, not off, and it’s still running faster than the drain. The bath is filling more slowly, but it’s still filling."
+  },
+  {
+    "id": "sys_w1_bathtub_creditcard",
+    "tier": "deterministic",
+    "drill_type": "bathtub_puzzle",
+    "taxonomy_nodes": ["sterman_bathtub_paradox", "reinforcing_vs_balancing"],
+    "difficulty_elo": 1380,
+    "domain": "Personal Finance",
+    "register_tags": { "formal": "Hidden Stock-Dependent Inflow", "intuitive": "The Tap That Grows With the Tub" },
+    "prompt_instruction": "Work out what is happening to the card balance. Watch for a flow the speaker isn’t counting.",
+    "passage_segments": [
+      { "id": "s1", "text": "Priya’s spending has exceeded her take-home pay every month this year.", "system_role": "inflow_source" },
+      { "id": "s2", "text": "In January she overspent by £600; by June she had cut that to £150 a month, all of it put on her credit card.", "system_role": "inflow_deceleration" },
+      { "id": "s3", "text": "The card charges 2% interest a month on the balance, which stood at £4,000 in June.", "system_role": "stock_dependent_inflow" },
+      { "id": "s4", "text": "“I’m finally paying it down,” she tells a friend.", "system_role": "target_bathtub_error" }
+    ],
+    "steps": [
+      {
+        "id": "t1", "label": "Direction",
+        "question": "In June, what is the balance doing?",
+        "options": [
+          { "id": "a", "text": "Rising by about £230 a month.", "is_correct": true, "feedback": "£150 of new overspending plus £80 interest (2% of £4,000). Nothing is flowing out." },
+          { "id": "b", "text": "Rising by £150 a month.", "is_correct": false, "feedback": "You’ve missed the interest, the second inflow." },
+          { "id": "c", "text": "Falling by £450 a month.", "is_correct": false, "feedback": "£450 is how much the overspending fell (from £600 to £150). The balance has no outflow at all." },
+          { "id": "d", "text": "Holding steady.", "is_correct": false, "feedback": "Steady needs outflow equal to inflow. There is no outflow here." }
+        ]
+      },
+      {
+        "id": "t2", "label": "The hidden flow",
+        "question": "Why is the interest the easiest flow to miss, and the most dangerous?",
+        "options": [
+          { "id": "a", "text": "It grows with the balance itself, so it forms a reinforcing loop: a bigger balance means more interest, which makes the balance bigger still.", "is_correct": true, "feedback": "Yes. A stock-dependent inflow is a reinforcing loop, a snowball." },
+          { "id": "b", "text": "It is a fixed fee that never changes.", "is_correct": false, "feedback": "It’s a percentage of the balance, so it changes whenever the balance does." },
+          { "id": "c", "text": "It only applies once the balance passes a limit.", "is_correct": false, "feedback": "Nothing in the passage says so: 2% a month on the balance." },
+          { "id": "d", "text": "It is an outflow, so it helps.", "is_correct": false, "feedback": "Interest adds to what she owes. It’s an inflow to the debt." }
+        ]
+      },
+      {
+        "id": "t3", "label": "Turning point",
+        "question": "If she stops overspending entirely (£0 a month), what happens to the balance?",
+        "options": [
+          { "id": "a", "text": "It keeps rising by the interest, about £80 a month and growing, until she pays in more than the interest each month.", "is_correct": true, "feedback": "Correct. Cutting one inflow to zero isn’t enough; she needs an outflow (repayments) bigger than the remaining inflow." },
+          { "id": "b", "text": "It starts falling.", "is_correct": false, "feedback": "Only an outflow can make it fall, and there isn’t one yet." },
+          { "id": "c", "text": "It freezes at £4,000.", "is_correct": false, "feedback": "Interest is still flowing in." },
+          { "id": "d", "text": "It halves within a year.", "is_correct": false, "feedback": "No outflow, no fall." }
+        ]
+      }
+    ],
+    "ledger": [
+      { "label": "Inflow 1: overspending", "value": "£150 / month" },
+      { "label": "Inflow 2: interest (2% × £4,000)", "value": "£80 / month" },
+      { "label": "Outflow: repayments", "value": "£0 / month" },
+      { "label": "Net change", "value": "+£230 / month" },
+      { "label": "Balance falls only when", "value": "repayments > overspending + interest" }
+    ],
+    "explanation_formal": "The balance has two inflows, one of them proportional to the stock (interest), which creates a reinforcing loop. Reducing the exogenous inflow slows growth but cannot reverse it without an outflow that exceeds the total inflow.",
+    "explanation_intuitive": "She turned one tap down but there’s a second tap that opens wider as the tub fills. And there’s no plug pulled at all. “Paying it down” starts when money actually goes out."
+  },
+  {
+    "id": "sys_w1_bathtub_carbon",
+    "tier": "deterministic",
+    "drill_type": "bathtub_puzzle",
+    "taxonomy_nodes": ["sterman_bathtub_paradox", "buffers_shock_absorbers"],
+    "difficulty_elo": 1420,
+    "domain": "Ecological & Resource Systems",
+    "register_tags": { "formal": "Emissions–Concentration Confusion", "intuitive": "Cutting the Tap Isn’t Draining the Tub" },
+    "prompt_instruction": "A climate briefing, in illustrative round numbers. Work out what happens to the atmospheric carbon stock.",
+    "passage_segments": [
+      { "id": "s1", "text": "Human activity puts about 10 billion tonnes of carbon into the atmosphere each year.", "system_role": "inflow" },
+      { "id": "s2", "text": "Oceans and land ecosystems absorb roughly 5 billion tonnes of it each year.", "system_role": "outflow" },
+      { "id": "s3", "text": "A minister announces that emissions will fall 20% by 2035, and says this “will start to bring CO₂ levels down”.", "system_role": "target_bathtub_error" }
+    ],
+    "steps": [
+      {
+        "id": "t1", "label": "Direction in 2035",
+        "question": "If emissions fall 20% to 8 billion tonnes and absorption stays near 5, what is atmospheric carbon doing in 2035?",
+        "options": [
+          { "id": "a", "text": "Still rising, by about 3 billion tonnes a year.", "is_correct": true, "feedback": "8 in, about 5 out. Slower than today’s +5 a year, but still rising." },
+          { "id": "b", "text": "Falling, by 2 billion tonnes a year.", "is_correct": false, "feedback": "2 is the cut in the inflow, not a change in the stock." },
+          { "id": "c", "text": "Stable.", "is_correct": false, "feedback": "Stable needs inflow equal to outflow: 8 is not 5." },
+          { "id": "d", "text": "Impossible to say without knowing today’s concentration.", "is_correct": false, "feedback": "You need the level for the level, but the direction comes from the flows alone." }
+        ]
+      },
+      {
+        "id": "t2", "label": "Peak condition",
+        "question": "Roughly what has to happen for atmospheric carbon to stop rising?",
+        "options": [
+          { "id": "a", "text": "Emissions have to fall to about the rate of absorption: roughly half of today’s.", "is_correct": true, "feedback": "Yes, in this simple picture. In reality absorption also shifts as concentrations and temperatures change, which is one reason real climate models are harder than a bathtub." },
+          { "id": "b", "text": "Emissions have to stop growing.", "is_correct": false, "feedback": "Flat emissions of 10 against absorption of 5 still add 5 a year." },
+          { "id": "c", "text": "A 20% cut is enough, because it reverses the trend.", "is_correct": false, "feedback": "It reverses the trend in the inflow, not in the stock." },
+          { "id": "d", "text": "Emissions have to reach zero.", "is_correct": false, "feedback": "Zero would make it fall. To stop the rise, inflow only needs to match outflow." }
+        ]
+      },
+      {
+        "id": "t3", "label": "Name the error",
+        "question": "What is the minister’s mistake?",
+        "options": [
+          { "id": "a", "text": "Treating a lower inflow rate as if it were a falling stock.", "is_correct": true, "feedback": "The classic bathtub error, which Sweeney & Sterman found even among MIT graduate students." },
+          { "id": "b", "text": "Overestimating how much the oceans absorb.", "is_correct": false, "feedback": "The briefing’s numbers aren’t the problem; the inference is." },
+          { "id": "c", "text": "Picking the wrong target year.", "is_correct": false, "feedback": "Any year has the same problem while inflow exceeds outflow." },
+          { "id": "d", "text": "Ignoring a reinforcing loop.", "is_correct": false, "feedback": "There may be some in reality, but the error here needs only simple stock-flow arithmetic to expose." }
+        ]
+      }
+    ],
+    "ledger": [
+      { "label": "Inflow today (illustrative)", "value": "10 Gt C / year" },
+      { "label": "Outflow (natural sinks)", "value": "≈ 5 Gt C / year" },
+      { "label": "Inflow after 20% cut", "value": "8 Gt C / year" },
+      { "label": "Net change after cut", "value": "≈ +3 Gt C / year" },
+      { "label": "Stock stops rising when", "value": "emissions ≈ absorption" }
+    ],
+    "explanation_formal": "Atmospheric carbon is a stock integrating emissions minus net uptake. Holding the stock constant requires emissions to fall to the uptake rate; lowering emissions while they remain above uptake reduces only the rate of accumulation.",
+    "explanation_intuitive": "Turning the tap from 10 to 8 when the drain only takes 5 means the bath still fills, by 3 a year instead of 5. The figures are rounded for teaching, but the logic is the same at any scale."
+  },
+  {
+    "id": "sys_w1_bathtub_waitinglist",
+    "tier": "deterministic",
+    "drill_type": "bathtub_puzzle",
+    "taxonomy_nodes": ["stock_flow_dissection", "sterman_bathtub_paradox"],
+    "difficulty_elo": 1300,
+    "domain": "Civic & Urban Policy",
+    "register_tags": { "formal": "Underdetermined Net Flow", "intuitive": "The Missing Drain" },
+    "prompt_instruction": "Decide what can and can’t be concluded from this press statement.",
+    "passage_segments": [
+      { "id": "s1", "text": "The council’s housing waiting list had 2,300 households on it in March.", "system_role": "stock" },
+      { "id": "s2", "text": "New applications fell by 20% between March and September, to 80 a month.", "system_role": "inflow_deceleration" },
+      { "id": "s3", "text": "The housing director told the press the list is “clearly shrinking”.", "system_role": "unsupported_claim" }
+    ],
+    "steps": [
+      {
+        "id": "t1", "label": "Can you tell?",
+        "question": "Does the passage show whether the list is shrinking?",
+        "options": [
+          { "id": "a", "text": "No. It gives the inflow but not the outflow, so the net change is unknown.", "is_correct": true, "feedback": "Right. The direction of a stock depends on both flows, and only one is given." },
+          { "id": "b", "text": "Yes. Applications fell, so the list is shrinking.", "is_correct": false, "feedback": "That’s the bathtub error: a falling inflow says nothing on its own about the stock." },
+          { "id": "c", "text": "Yes. It is growing by 80 a month.", "is_correct": false, "feedback": "Only if nobody leaves the list, and we aren’t told that." },
+          { "id": "d", "text": "Yes. A 20% fall means the list will be 20% shorter.", "is_correct": false, "feedback": "A change in a rate is not a change in the level." }
+        ]
+      },
+      {
+        "id": "t2", "label": "The missing figure",
+        "question": "Which single figure would settle it?",
+        "options": [
+          { "id": "a", "text": "How many households leave the list each month (housed, moved away or removed).", "is_correct": true, "feedback": "That’s the outflow. Compare it with 80 a month and you have the direction." },
+          { "id": "b", "text": "The application rate before March.", "is_correct": false, "feedback": "That only tells you how the inflow has changed, which we already know." },
+          { "id": "c", "text": "The total number of council homes.", "is_correct": false, "feedback": "That’s a different stock. What matters is how fast homes are allocated." },
+          { "id": "d", "text": "The average waiting time.", "is_correct": false, "feedback": "Useful, but it lags and depends on both flows. It won’t settle the direction now." }
+        ]
+      },
+      {
+        "id": "t3", "label": "Plug in a number",
+        "question": "Suppose 70 households a month leave the list. What is happening?",
+        "options": [
+          { "id": "a", "text": "It’s growing by 10 a month.", "is_correct": true, "feedback": "80 in, 70 out: +10 a month. The director is wrong, although the list is growing more slowly than before." },
+          { "id": "b", "text": "It’s shrinking by 10 a month.", "is_correct": false, "feedback": "Check which is bigger: inflow 80 or outflow 70." },
+          { "id": "c", "text": "It’s shrinking by 20%.", "is_correct": false, "feedback": "20% describes the change in applications, not the list." },
+          { "id": "d", "text": "It’s stable.", "is_correct": false, "feedback": "Stable needs 80 out." }
+        ]
+      }
+    ],
+    "ledger": [
+      { "label": "Inflow (applications)", "value": "80 / month" },
+      { "label": "Outflow (leaving the list)", "value": "not reported" },
+      { "label": "If outflow = 70 / month", "value": "net +10 / month" },
+      { "label": "List shrinks only when", "value": "outflow > 80 / month" }
+    ],
+    "explanation_formal": "With only one flow specified, the sign of the stock’s derivative is undetermined. Any claim about the stock’s direction must state, or estimate, the outflow.",
+    "explanation_intuitive": "You can’t say whether a bath is emptying if nobody tells you how fast the plughole drains. Ask for the drain figure before you believe the headline."
+  },
+  {
+    "id": "sys_w1_buffer_aquifer",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["buffers_shock_absorbers", "linear_attribution_bias"],
+    "difficulty_elo": 1300,
+    "domain": "Ecological & Resource Systems",
+    "register_tags": { "formal": "Buffer Masking of Chronic Deficit", "intuitive": "The Big Tank Hides the Leak" },
+    "prompt_instruction": "Click the sentence where the sheer size of the stock hides a long-running problem.",
+    "passage_segments": [
+      { "id": "s1", "text": "For forty years, farms in the valley pumped more groundwater each summer than winter rain put back.", "system_role": "chronic_net_outflow" },
+      { "id": "s2", "text": "Because the aquifer was so large, the wells kept delivering and nobody saw a reason to change anything.", "system_role": "buffer_masking" },
+      { "id": "s3", "text": "Last year, the first wells ran dry within weeks of each other.", "system_role": "threshold_crossed" },
+      { "id": "s4", "text": "Officials call it a sudden crisis caused by one unusually dry summer.", "system_role": "linear_attribution" }
+    ],
+    "correct_target_id": "s2",
+    "follow_up_question": {
+      "question": "What did the aquifer’s size actually do?",
+      "options": [
+        { "id": "o1", "text": "It delayed the warning: a forty-year deficit stayed invisible until levels reached the bottom of the wells.", "is_correct": true, "feedback": "Yes. A large buffer absorbs shocks, but it also hides slow decay until a threshold is crossed." },
+        { "id": "o2", "text": "It prevented depletion for forty years.", "is_correct": false, "feedback": "Depletion happened every year. The size only hid it." },
+        { "id": "o3", "text": "Nothing. The dry summer was the real cause.", "is_correct": false, "feedback": "That’s the officials’ single-event story. The summer was the last straw on a forty-year trend." },
+        { "id": "o4", "text": "It caused the wells to fail all at once.", "is_correct": false, "feedback": "The wells failed together because they share one falling stock, not because the stock was big." }
+      ]
+    },
+    "explanation_formal": "A large stock relative to its net flow gives a long time constant: the system looks stable while it is in persistent deficit. Response is sluggish and the decay is masked until a nonlinear threshold (the well depth) is reached.",
+    "explanation_intuitive": "A huge tank with a slow leak looks fine for years. Then it doesn’t. The dry summer didn’t empty the aquifer; forty years did."
+  },
+  {
+    "id": "sys_w1_delay_fans",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["delays_oscillation", "leverage_information_flows"],
+    "difficulty_elo": 1350,
+    "domain": "Organisational & Process Management",
+    "register_tags": { "formal": "Supply-Line Neglect under Delivery Delay", "intuitive": "Ordering Again Because the First Order Hasn’t Arrived" },
+    "prompt_instruction": "Delay sniping: click the sentence where people overreact because they are steering by outdated information.",
+    "passage_segments": [
+      { "id": "s1", "text": "Brightway Retail reorders stock every Monday, and deliveries take four weeks to arrive.", "system_role": "material_delay" },
+      { "id": "s2", "text": "When a heatwave doubled fan sales, store managers saw empty shelves and placed large orders.", "system_role": "initial_correction" },
+      { "id": "s3", "text": "Seeing the shelves still empty a week later, because nothing they had ordered had arrived yet, they ordered again, and again the week after.", "system_role": "supply_line_neglect" },
+      { "id": "s4", "text": "In August, three months’ worth of fans arrived at once, just as the heatwave ended.", "system_role": "overshoot" }
+    ],
+    "correct_target_id": "s3",
+    "follow_up_question": {
+      "question": "Which change would most directly stop the overshoot?",
+      "options": [
+        { "id": "o1", "text": "Show managers the orders already on their way, and subtract them before placing a new order.", "is_correct": true, "feedback": "Yes. Making the supply line visible fixes the information the decision is based on." },
+        { "id": "o2", "text": "Tell managers to order even more, even earlier.", "is_correct": false, "feedback": "Faster, bigger corrections on a delayed signal make the overshoot worse." },
+        { "id": "o3", "text": "Switch to a supplier with a three-and-a-half-week lead time.", "is_correct": false, "feedback": "A slightly shorter delay helps a little, but managers would still ignore what’s already ordered." },
+        { "id": "o4", "text": "Discipline the managers who over-ordered.", "is_correct": false, "feedback": "Any manager in that seat, with that information, would do the same. Blame doesn’t change the structure." }
+      ]
+    },
+    "explanation_formal": "A balancing loop (order to close the gap between desired and actual stock) with a material delay oscillates when decision-makers neglect the supply line, i.e. orders placed but not yet received. This is the structure behind the Beer Game’s bullwhip effect.",
+    "explanation_intuitive": "It’s the shower again: you turned the hot tap, nothing happened yet, so you turned it more, and then got scalded. The fix is to remember what you’ve already turned."
+  },
+  {
+    "id": "sys_w1_iso_housing_cycle",
+    "tier": "deterministic",
+    "drill_type": "isomorphic_match",
+    "taxonomy_nodes": ["delays_oscillation", "reinforcing_vs_balancing"],
+    "difficulty_elo": 1300,
+    "domain": "Cross-domain",
+    "register_tags": { "formal": "Delayed Balancing Loop (Oscillation)", "intuitive": "The Shower Temperature Overshoot" },
+    "prompt_instruction": "Find the story with the same skeleton as the source.",
+    "source_narrative": {
+      "domain": "Everyday Life",
+      "text": "In an old hotel shower, the water runs cold, so you turn the hot tap up. Nothing changes for several seconds, so you turn it further. Suddenly it’s scalding, so you crank it back hard, and a few seconds later you’re freezing again."
+    },
+    "candidates": [
+      { "id": "c1", "domain": "Housing Markets", "text": "Rents spike, so developers start hundreds of new flats. They take three years to finish, and by then demand has cooled, so a glut of empty flats drives rents down. Developers stop building, and three years later rents spike again.", "is_correct": true, "feedback": "Same skeleton: a balancing loop (build to close a shortage) acting through a long delay, so it overshoots and oscillates." },
+      { "id": "c2", "domain": "Banking", "text": "A rumour that a bank is in trouble makes some depositors withdraw. The withdrawals make the bank look weaker, which makes more depositors withdraw, until it collapses in two days.", "is_correct": false, "feedback": "That’s a reinforcing loop (a run feeds on itself), not a delayed balancing loop." },
+      { "id": "c3", "domain": "Fisheries", "text": "Every boat in a bay catches as much as it can, because any fish it leaves will be caught by someone else. Within a decade the cod are gone.", "is_correct": false, "feedback": "That’s the tragedy of the commons: individual gain, shared depletion. No overshoot cycle." },
+      { "id": "c4", "domain": "Social Media", "text": "A video gets shared, then shared again, faster and faster, until almost everyone who might care has seen it and the shares level off.", "is_correct": false, "feedback": "That’s an S-curve: reinforcing growth until a limit makes a balancing loop take over. It levels off rather than oscillating." }
+    ],
+    "follow_up_question": {
+      "question": "Name the shared skeleton.",
+      "options": [
+        { "id": "o1", "text": "A goal-seeking loop whose corrections take effect long after they’re made, so people over-correct.", "is_correct": true, "feedback": "Exactly: balancing feedback plus delay produces overshoot and oscillation." },
+        { "id": "o2", "text": "A self-reinforcing spiral.", "is_correct": false, "feedback": "Neither story runs away in one direction; they swing back and forth." },
+        { "id": "o3", "text": "A shared resource being overused.", "is_correct": false, "feedback": "No commons in either story." },
+        { "id": "o4", "text": "Bad luck: random shocks.", "is_correct": false, "feedback": "The swings come from the structure, not from outside shocks." }
+      ]
+    },
+    "explanation_formal": "Both are first-order balancing loops with a significant delay between corrective action and its observed effect. Decision-makers respond to the uncorrected gap, accumulate excess corrective action in the pipeline, and overshoot the goal, producing sustained oscillation.",
+    "explanation_intuitive": "Hot tap and housing developers make the same mistake: they keep acting on how things look now, forgetting that what they already did hasn’t arrived yet."
+  },
+  {
+    "id": "sys_w1_dominance_startup",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["shifting_dominance", "linear_attribution_bias"],
+    "difficulty_elo": 1450,
+    "domain": "Business",
+    "register_tags": { "formal": "Shift in Loop Dominance (Binding Constraint)", "intuitive": "The Shortest Stave Moves" },
+    "prompt_instruction": "Click the sentence where loop dominance shifts: where the thing limiting growth changes.",
+    "passage_segments": [
+      { "id": "s1", "text": "In year one, every extra pound Loomly spent on marketing brought in customers, and those customers referred their friends.", "system_role": "reinforcing_growth" },
+      { "id": "s2", "text": "By year two, sign-ups were still climbing, but the small support team was answering tickets five days late.", "system_role": "emerging_constraint" },
+      { "id": "s3", "text": "Frustrated new customers began cancelling and warning friends off, and growth stalled even though marketing spend doubled.", "system_role": "dominance_shift" },
+      { "id": "s4", "text": "The board concluded that the marketing agency had lost its touch.", "system_role": "linear_attribution" }
+    ],
+    "correct_target_id": "s3",
+    "follow_up_question": {
+      "question": "Where should the next pound go?",
+      "options": [
+        { "id": "o1", "text": "Support capacity: it’s now the binding constraint, so it turns the referral loop back on.", "is_correct": true, "feedback": "Yes. Relieve the scarcest input and growth resumes, until the next constraint binds." },
+        { "id": "o2", "text": "More marketing, to outrun the cancellations.", "is_correct": false, "feedback": "Extra sign-ups now feed the support backlog and the cancellations." },
+        { "id": "o3", "text": "A new agency.", "is_correct": false, "feedback": "The agency didn’t change; the system did. That’s the board’s single-villain story." },
+        { "id": "o4", "text": "A discount campaign.", "is_correct": false, "feedback": "Same problem as marketing: more customers into a jammed support queue." }
+      ]
+    },
+    "explanation_formal": "Growth was initially dominated by a reinforcing referral loop. As the customer base grew, a balancing loop through support capacity (slow responses → churn and negative word of mouth) became dominant. Per Liebig, the scarcest input now limits growth, so adding the non-limiting input (marketing) has no effect.",
+    "explanation_intuitive": "A barrel only holds water up to its shortest stave. Marketing was the short stave in year one. By year two, support was, and pouring more money into marketing just made the leak bigger."
+  },
+  {
+    "id": "sys_w1_loops_bakery",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["reinforcing_vs_balancing"],
+    "difficulty_elo": 1100,
+    "domain": "Everyday Human & Social Systems",
+    "register_tags": { "formal": "Balancing Loop Identification", "intuitive": "Find the Thermostat" },
+    "prompt_instruction": "Click the sentence that describes a balancing loop: one that pushes back as something grows.",
+    "passage_segments": [
+      { "id": "s1", "text": "Word spread that the new bakery had queues out of the door, so more people came to see what the fuss was about.", "system_role": "reinforcing_loop" },
+      { "id": "s2", "text": "The longer the queue grew, the more passers-by decided it wasn’t worth the wait and went elsewhere.", "system_role": "balancing_loop" },
+      { "id": "s3", "text": "Each new review mentioning the queue brought another wave of curious visitors.", "system_role": "reinforcing_loop" },
+      { "id": "s4", "text": "The owner hired a second baker in March.", "system_role": "intervention" }
+    ],
+    "correct_target_id": "s2",
+    "follow_up_question": {
+      "question": "If nothing else changes, what will the queue tend to do?",
+      "options": [
+        { "id": "o1", "text": "Settle at a length where the people it attracts roughly equal the people it puts off.", "is_correct": true, "feedback": "Yes. When a reinforcing and a balancing loop act on the same stock, it tends towards the point where they cancel." },
+        { "id": "o2", "text": "Grow without limit, because buzz feeds on itself.", "is_correct": false, "feedback": "That ignores sentence 2: the longer it gets, the more people it deters." },
+        { "id": "o3", "text": "Disappear, because long queues put people off.", "is_correct": false, "feedback": "Only if the deterrent always wins. The buzz loop keeps feeding it." },
+        { "id": "o4", "text": "Stay exactly as it is today.", "is_correct": false, "feedback": "It will move towards the balance point, which may not be today’s length." }
+      ]
+    },
+    "explanation_formal": "Sentences 1 and 3 describe reinforcing loops (queue length → visibility → arrivals → queue length). Sentence 2 is a balancing loop (queue length → perceived wait → balking → fewer arrivals). Together they drive the stock towards an equilibrium.",
+    "explanation_intuitive": "Two engines on one queue: buzz is the snowball, the wait is the thermostat. The queue ends up wherever the two cancel out."
+  },
+  {
+    "id": "sys_w1_iso_brushfire",
+    "tier": "deterministic",
+    "drill_type": "isomorphic_match",
+    "taxonomy_nodes": ["buffers_shock_absorbers", "archetype_fixes_that_fail"],
+    "difficulty_elo": 1400,
+    "domain": "Cross-domain",
+    "register_tags": { "formal": "Suppressed Release → Accumulation → Threshold Collapse", "intuitive": "Putting Out Every Small Fire" },
+    "prompt_instruction": "Four disasters from alien domains. Only one has the source’s skeleton. Find it.",
+    "source_narrative": {
+      "domain": "Ecology",
+      "text": "For decades, rangers put out every small brushfire in the forest. Without those small burns, dead wood and undergrowth piled up year after year. When a fire finally escaped, it had so much fuel that it became a catastrophic crown fire that destroyed the whole forest."
+    },
+    "candidates": [
+      { "id": "c1", "domain": "Macroeconomics", "text": "For twenty years, a central bank cut interest rates at the first sign of any downturn. Weak firms that would have failed survived, and debt quietly piled up across the economy. When rates finally had to rise, defaults cascaded into the deepest recession in decades.", "is_correct": true, "feedback": "Same skeleton: suppressing small corrections lets a hidden stock (debt, like fuel) build until a threshold triggers one huge release." },
+      { "id": "c2", "domain": "Public Health", "text": "A new flu strain spread from a single market. Each infected person passed it to two or three others, and within a month hospitals were overwhelmed.", "is_correct": false, "feedback": "A disaster, but its engine is a reinforcing contagion loop. Nothing small was suppressed, and no stock built up quietly." },
+      { "id": "c3", "domain": "Personal Relationships", "text": "Two siblings traded ever-sharper insults over an inheritance. Each reply was a little crueller than the last, until they stopped speaking altogether.", "is_correct": false, "feedback": "That’s escalation: two parties each reacting to the other. No suppressed releases." },
+      { "id": "c4", "domain": "Software Maintenance", "text": "A developer mistyped one line in a configuration file, and the deploy took the payments service offline for six hours.", "is_correct": false, "feedback": "A single point failure. There’s no accumulating stock and no suppression." }
+    ],
+    "follow_up_question": {
+      "question": "What is the shared skeleton?",
+      "options": [
+        { "id": "o1", "text": "Preventing small, frequent releases lets a stock build silently until it crosses a threshold and releases all at once.", "is_correct": true, "feedback": "Yes: a stock, a suppressed outflow, and a threshold." },
+        { "id": "o2", "text": "One bad decision triggers a disaster.", "is_correct": false, "feedback": "That’s a single-event reading. In both stories the danger came from decades of sensible-looking decisions." },
+        { "id": "o3", "text": "Two parties keep escalating.", "is_correct": false, "feedback": "There’s no rival in either story." },
+        { "id": "o4", "text": "A shared resource is overused.", "is_correct": false, "feedback": "Neither story has a commons." }
+      ]
+    },
+    "explanation_formal": "Both systems suppress a small, frequent outflow (minor fires, minor bankruptcies) that normally regulates a stock (fuel load, bad debt). The stock accumulates past a nonlinear threshold, so the eventual release is much larger. The suppression is a symptomatic fix with a delayed, worse side effect.",
+    "explanation_intuitive": "Little fires were how the forest stayed safe. Little failures were how the economy stayed safe. Stop all the little ones and you’re saving up for a big one."
+  }
+]

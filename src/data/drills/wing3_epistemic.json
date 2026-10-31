@@ -1,0 +1,191 @@
+[
+  {
+    "id": "sys_w3_iceberg_trolley",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["iceberg_translation", "boundary_critique"],
+    "difficulty_elo": 1250,
+    "domain": "Public Health",
+    "register_tags": { "formal": "The Iceberg Model: Event → Pattern → Structure → Mental Model", "intuitive": "Look Below the Waterline" },
+    "prompt_instruction": "Each sentence sits at a different level of the iceberg. Click the one that describes the structure producing the pattern.",
+    "passage_segments": [
+      { "id": "s1", "text": "On Tuesday night, a patient waited 14 hours on a trolley in Eastbrook’s emergency department.", "system_role": "event" },
+      { "id": "s2", "text": "Waits like this have happened every winter for six years, peaking each January.", "system_role": "pattern" },
+      { "id": "s3", "text": "Beds free up only when patients are discharged, and discharges stall because social care places come from a separate council budget that has shrunk every year.", "system_role": "structure" },
+      { "id": "s4", "text": "Both organisations are run on the belief that each should hit its own budget, whatever happens to the other.", "system_role": "mental_model" }
+    ],
+    "correct_target_id": "s3",
+    "follow_up_question": {
+      "question": "Where would the most lasting fix sit?",
+      "options": [
+        { "id": "o1", "text": "At the structure and the belief behind it: for example, one pooled budget accountable for the patient’s whole journey.", "is_correct": true, "feedback": "Yes. Interventions low on the iceberg react to events; those near the bottom change what produces them." },
+        { "id": "o2", "text": "At the event: an inquiry into Tuesday night’s staff.", "is_correct": false, "feedback": "Tuesday is one instance of a six-year pattern. Changing the staff won’t change the pattern." },
+        { "id": "o3", "text": "At the pattern: extra winter funding each January.", "is_correct": false, "feedback": "That responds to the pattern every year without changing what produces it." },
+        { "id": "o4", "text": "Nowhere: winter pressure is unavoidable.", "is_correct": false, "feedback": "Seasonal demand is unavoidable; a fixed discharge bottleneck isn’t." }
+      ]
+    },
+    "explanation_formal": "The iceberg model separates observable events, temporal patterns, the structures (stocks, flows, rules, budgets) that generate those patterns, and the mental models that sustain the structures. Leverage generally increases with depth.",
+    "explanation_intuitive": "The trolley wait is the tip. The yearly pattern is just under the water. The bed-and-budget plumbing is the bulk of the iceberg, and the “hit your own numbers” belief is what holds it all together."
+  },
+  {
+    "id": "sys_w3_posiwid_grades",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["posiwid", "goodhart_rule_beating"],
+    "difficulty_elo": 1300,
+    "domain": "Education",
+    "register_tags": { "formal": "POSIWID", "intuitive": "Ignore the Motto, Watch the Output" },
+    "prompt_instruction": "Click the sentence that shows what the system actually does, as opposed to what it says it does.",
+    "passage_segments": [
+      { "id": "s1", "text": "Our university’s mission is to certify genuine academic excellence.", "system_role": "stated_purpose" },
+      { "id": "s2", "text": "Over ten years, the share of first-class degrees has risen from 15% to 38%, while entry grades have stayed flat.", "system_role": "invariant_output" },
+      { "id": "s3", "text": "Departments are ranked, and partly funded, on student satisfaction and on the share of “good degrees” they award.", "system_role": "incentive_structure" },
+      { "id": "s4", "text": "The vice-chancellor says the university is “deeply concerned” by grade inflation, which remains “a sector-wide mystery”.", "system_role": "rhetoric" }
+    ],
+    "correct_target_id": "s2",
+    "follow_up_question": {
+      "question": "Under POSIWID, what is this system’s purpose?",
+      "options": [
+        { "id": "o1", "text": "Awarding good degrees to satisfied students, which keeps the rankings and the funding flowing.", "is_correct": true, "feedback": "Yes. Read the purpose off the output (s2) and the incentives that produce it (s3), not the mission statement." },
+        { "id": "o2", "text": "Certifying genuine excellence.", "is_correct": false, "feedback": "That’s the motto. Watch the output." },
+        { "id": "o3", "text": "Nobody knows: it’s a mystery.", "is_correct": false, "feedback": "Sentence 3 explains it. The “mystery” is a narrow boundary." },
+        { "id": "o4", "text": "Deliberately cheating students.", "is_correct": false, "feedback": "POSIWID isn’t about anyone’s intentions. It describes what the structure reliably produces." }
+      ]
+    },
+    "explanation_formal": "POSIWID (Stafford Beer) infers a system’s effective purpose from its reliable outputs rather than its declared intent. Here the incentive structure rewards degree classifications and satisfaction, and the system produces exactly those.",
+    "explanation_intuitive": "Forget the mission statement. The place reliably turns out more firsts from the same students, and it’s paid to. That’s what it’s for, whatever the brochure says."
+  },
+  {
+    "id": "sys_w3_boundary_whitefly",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["boundary_critique", "archetype_fixes_that_fail"],
+    "difficulty_elo": 1300,
+    "domain": "Ecological & Resource Systems",
+    "register_tags": { "formal": "Boundary Critique", "intuitive": "There Are No Side Effects" },
+    "prompt_instruction": "Boundary exposure: click the sentence where an endogenous consequence is dismissed as an outside “side effect”.",
+    "passage_segments": [
+      { "id": "s1", "text": "In 2019 the co-operative began spraying a broad-spectrum insecticide to protect its cotton from bollworm.", "system_role": "intervention" },
+      { "id": "s2", "text": "Bollworm damage fell sharply for two seasons.", "system_role": "short_term_success" },
+      { "id": "s3", "text": "The spray also killed the wasps and beetles that ate whitefly, and whitefly numbers exploded.", "system_role": "endogenous_consequence" },
+      { "id": "s4", "text": "The co-operative’s report calls the whitefly outbreak “an unforeseen side effect, external to the bollworm programme”.", "system_role": "boundary_error" }
+    ],
+    "correct_target_id": "s4",
+    "follow_up_question": {
+      "question": "Where should the boundary of the analysis have been drawn?",
+      "options": [
+        { "id": "o1", "text": "Around the whole insect community in the field: the spray acts on predators and other pests, not just bollworm.", "is_correct": true, "feedback": "Yes. The whitefly outbreak runs through a loop the programme itself created, so it belongs inside the boundary." },
+        { "id": "o2", "text": "Around the bollworm only: whitefly is a separate problem.", "is_correct": false, "feedback": "That’s the report’s boundary, which is exactly the error." },
+        { "id": "o3", "text": "Around the whole global cotton market.", "is_correct": false, "feedback": "Wider isn’t automatically better. Draw it around the loops that matter: here, the field’s food web." },
+        { "id": "o4", "text": "There’s no need for a boundary: it was bad luck.", "is_correct": false, "feedback": "A predictable consequence of killing predators isn’t luck." }
+      ]
+    },
+    "explanation_formal": "The report draws the system boundary around the target pest, so a consequence produced by the intervention through the predator–prey loop is classed as exogenous. Boundary critique asks what was excluded and whether its exclusion is justified.",
+    "explanation_intuitive": "There’s no such thing as a side effect, only effects you didn’t want to count. Kill the whitefly’s enemies and you’ve grown whitefly: that’s your effect, not the weather’s."
+  },
+  {
+    "id": "sys_w3_linear_outage",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["linear_attribution_bias", "iceberg_translation"],
+    "difficulty_elo": 1200,
+    "domain": "Software Maintenance",
+    "register_tags": { "formal": "Linear Attribution Bias", "intuitive": "The Single Villain" },
+    "prompt_instruction": "Click the sentence that collapses a multi-cause failure into a single culprit.",
+    "passage_segments": [
+      { "id": "s1", "text": "At 02:14 the payments service went down for three hours after an engineer ran a database migration.", "system_role": "event" },
+      { "id": "s2", "text": "The migration had passed review, by a reviewer with 40 other pull requests in their queue that week.", "system_role": "contributing_condition" },
+      { "id": "s3", "text": "The staging database had not matched production for months, because keeping it in sync was nobody’s job.", "system_role": "latent_condition" },
+      { "id": "s4", "text": "The post-mortem concludes that “the root cause was human error” and recommends the engineer retake training.", "system_role": "single_villain" }
+    ],
+    "correct_target_id": "s4",
+    "follow_up_question": {
+      "question": "Which framing is more accurate and more useful?",
+      "options": [
+        { "id": "o1", "text": "Several conditions combined: review overload, a drifted staging copy and no owner for it. Fix those so the next engineer can’t make the same mistake.", "is_correct": true, "feedback": "Yes. The engineer was the last link in a chain the system built." },
+        { "id": "o2", "text": "The reviewer is the real culprit.", "is_correct": false, "feedback": "Swapping one villain for another is the same error." },
+        { "id": "o3", "text": "It was bad luck that it happened at 2 a.m.", "is_correct": false, "feedback": "Timing made it worse, but the conditions were in place for months." },
+        { "id": "o4", "text": "Stop running migrations.", "is_correct": false, "feedback": "Removes the trigger, not the conditions that made it dangerous." }
+      ]
+    },
+    "explanation_formal": "Linear attribution assigns an emergent failure to the proximate actor. In systems terms the outage was produced by interacting latent conditions (reviewer load, environment drift, missing ownership), and any engineer in that position could have triggered it.",
+    "explanation_intuitive": "Blaming the person who pressed the button is easy and teaches nothing. Ask why the button was loaded."
+  },
+  {
+    "id": "sys_w3_variety_adviceline",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["requisite_variety", "goodhart_rule_beating"],
+    "difficulty_elo": 1400,
+    "domain": "Civic & Urban Policy",
+    "register_tags": { "formal": "Ashby’s Law of Requisite Variety", "intuitive": "Regulator Overload" },
+    "prompt_instruction": "Click the sentence where the controller’s range of responses falls below the variety of problems it must handle.",
+    "passage_segments": [
+      { "id": "s1", "text": "The council’s housing advice line handles everything from leaking roofs to rent arrears to domestic abuse.", "system_role": "environmental_variety" },
+      { "id": "s2", "text": "To cut costs, it replaced its trained advisers with a scripted menu of six options.", "system_role": "variety_deficit" },
+      { "id": "s3", "text": "Calls that don’t fit the six options go into a general queue, which now takes three weeks to clear.", "system_role": "unregulated_overflow" },
+      { "id": "s4", "text": "Managers report that 94% of calls are “resolved at first contact”, counting a referral to the general queue as a resolution.", "system_role": "metric_gaming" }
+    ],
+    "correct_target_id": "s2",
+    "follow_up_question": {
+      "question": "What does Ashby’s Law suggest?",
+      "options": [
+        { "id": "o1", "text": "Either give the front line more possible responses (trained staff with discretion), or reduce the variety arriving (fix the common causes upstream).", "is_correct": true, "feedback": "Yes. Only variety can absorb variety: raise the regulator’s, or lower the disturbance’s." },
+        { "id": "o2", "text": "Add a seventh menu option.", "is_correct": false, "feedback": "A small step in the right direction, but a menu can never match the range of real housing problems." },
+        { "id": "o3", "text": "Make the script stricter, so calls are shorter.", "is_correct": false, "feedback": "That cuts the regulator’s variety further." },
+        { "id": "o4", "text": "Celebrate the 94%.", "is_correct": false, "feedback": "That figure counts failures as resolutions. The variety deficit has been moved into the queue, not solved." }
+      ]
+    },
+    "explanation_formal": "Ashby’s Law: a regulator can hold outcomes within bounds only if its variety (repertoire of responses) matches the variety of disturbances. Reducing the regulator to six states leaves unabsorbed variety, which reappears as an unmanaged queue.",
+    "explanation_intuitive": "Six buttons can’t handle a thousand kinds of trouble. The rest doesn’t vanish; it just piles up somewhere you’re not counting."
+  },
+  {
+    "id": "sys_w3_triage_reoffending",
+    "tier": "deterministic",
+    "drill_type": "leverage_triage",
+    "taxonomy_nodes": ["posiwid", "archetype_fixes_that_fail", "leverage_goals_paradigms"],
+    "difficulty_elo": 1500,
+    "domain": "Civic & Urban Policy",
+    "register_tags": { "formal": "POSIWID & Goal Redefinition (#3)", "intuitive": "Watch What It Makes, Then Change What It’s For" },
+    "prompt_instruction": "A fictional county’s justice system. Triage it in three steps: archetype, real output, highest-leverage fix.",
+    "passage_segments": [
+      { "id": "s1", "text": "Each time reoffending rose in Marrowshire, the response was longer sentences.", "system_role": "symptomatic_fix" },
+      { "id": "s2", "text": "Longer stays cost more people their jobs, homes and family ties, which the county’s own data shows are the best predictors of staying out of trouble after release.", "system_role": "delayed_side_effect" },
+      { "id": "s3", "text": "Reoffending kept rising, and each agency was judged only on its own targets: courts on sentences handed down, prisons on escapes prevented.", "system_role": "goal_fragmentation" }
+    ],
+    "steps": [
+      {
+        "id": "t1", "label": "Archetype",
+        "question": "Which archetype is running?",
+        "options": [
+          { "id": "a", "text": "Fixes That Fail", "is_correct": true, "feedback": "Yes. The fix (longer sentences) feeds a delayed side effect (lost jobs, homes and ties) that pushes reoffending up." },
+          { "id": "b", "text": "Escalation", "is_correct": false, "feedback": "No two parties are reacting to each other’s position." },
+          { "id": "c", "text": "Success to the Successful", "is_correct": false, "feedback": "No competition for a shared resource." },
+          { "id": "d", "text": "Tragedy of the Commons", "is_correct": false, "feedback": "No shared resource is being drawn down." }
+        ]
+      },
+      {
+        "id": "t2", "label": "POSIWID",
+        "question": "Judging only by its reliable outputs, what is this system producing?",
+        "options": [
+          { "id": "a", "text": "Punishment, delivered efficiently by each agency, and a steady stream of people returning to prison.", "is_correct": true, "feedback": "Yes. Each agency produces what it’s judged on; nobody is judged on what happens afterwards." },
+          { "id": "b", "text": "Public safety.", "is_correct": false, "feedback": "The stated purpose. The output is rising reoffending." },
+          { "id": "c", "text": "Rehabilitation.", "is_correct": false, "feedback": "Nothing in the structure rewards it." },
+          { "id": "d", "text": "Cost savings.", "is_correct": false, "feedback": "Longer sentences cost more." }
+        ]
+      },
+      {
+        "id": "t3", "label": "Leverage",
+        "question": "Which intervention has the highest leverage?",
+        "options": [
+          { "id": "a", "text": "Lengthen sentences again for repeat offenders.", "is_correct": false, "feedback": "A parameter (#12), and the fix that’s already failing.", "leverage_point": 12 },
+          { "id": "b", "text": "Build a new prison so there is room for longer sentences.", "is_correct": false, "feedback": "A bigger buffer (#11) for the same loop.", "leverage_point": 11 },
+          { "id": "c", "text": "Publish each prison’s two-year reoffending rate.", "is_correct": false, "feedback": "A useful information flow (#6), but nobody’s goal changes.", "leverage_point": 6 },
+          { "id": "d", "text": "Make the shared goal of courts, prisons and probation “fewer future victims”, and judge every agency on that.", "is_correct": true, "feedback": "Changing the goal of the system (#3) realigns every part at once.", "leverage_point": 3 }
+        ]
+      }
+    ],
+    "explanation_formal": "When each subsystem optimises its own goal, the whole system’s output (POSIWID) is the sum of those local optimisations, here punishment throughput. Redefining the overarching goal (Meadows #3) changes what every subsystem’s feedback loops steer towards.",
+    "explanation_intuitive": "Each part is doing its job well. The trouble is that no part’s job is “fewer people coming back”. Give them all that job and their behaviour changes together."
+  }
+]

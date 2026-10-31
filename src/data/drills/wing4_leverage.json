@@ -1,0 +1,258 @@
+[
+  {
+    "id": "sys_w4_handover_constraint",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["leverage_parameters", "shifting_dominance", "boundary_critique"],
+    "difficulty_elo": 1400,
+    "domain": "Public Health",
+    "register_tags": { "formal": "Punishing the Inflow Valve (#12)", "intuitive": "Fining the Ambulance for the Ward’s Traffic Jam" },
+    "prompt_instruction": "Click the sentence that names the real binding constraint.",
+    "passage_segments": [
+      { "id": "s1", "text": "To stop emergency departments backing up, the health board will fine ambulance crews whose patient handovers take longer than 15 minutes.", "system_role": "parameter_punishment" },
+      { "id": "s2", "text": "It will also raise the triage target by 10%.", "system_role": "parameter_tweak" },
+      { "id": "s3", "text": "Ambulances queue outside because the department has nowhere to put patients: its cubicles are full of people waiting for a ward bed.", "system_role": "intermediate_stock" },
+      { "id": "s4", "text": "Ward beds free up slowly because patients who are well enough to leave can’t be discharged until a care-home or home-care place is found.", "system_role": "binding_outflow_constraint" }
+    ],
+    "correct_target_id": "s4",
+    "follow_up_question": {
+      "question": "Which intervention has the most leverage?",
+      "options": [
+        { "id": "o1", "text": "Raise the fine so crews hurry.", "is_correct": false, "feedback": "A parameter (#12) aimed at the inflow valve. Crews can’t hand over patients to cubicles that are full.", "leverage_point": 12 },
+        { "id": "o2", "text": "Add ten emergency cubicles.", "is_correct": false, "feedback": "A bigger buffer (#11). It fills, because the outflow constraint is unchanged.", "leverage_point": 11 },
+        { "id": "o3", "text": "Give ward managers a live view of the ambulance queue.", "is_correct": false, "feedback": "Better information (#6), but ward managers can’t create care places.", "leverage_point": 6 },
+        { "id": "o4", "text": "Make the health board and the council jointly responsible, and jointly funded, for discharge delays.", "is_correct": true, "feedback": "A rule change (#5) that puts the cost of the bottleneck on the people who can clear it.", "leverage_point": 5 }
+      ]
+    },
+    "explanation_formal": "The ambulance queue is the visible end of a chain of stocks (ambulances waiting → cubicles occupied → ward beds occupied) whose binding constraint is the outflow from wards to social care. Penalising the upstream inflow (#12) cannot raise a downstream outflow.",
+    "explanation_intuitive": "Fining the car at the back of a traffic jam doesn’t move the lorry stuck at the front. Find the front of the queue: here, it’s care places, three steps downstream."
+  },
+  {
+    "id": "sys_w4_parameters_litter",
+    "tier": "deterministic",
+    "drill_type": "anatomical_dissection",
+    "taxonomy_nodes": ["leverage_parameters", "leverage_rules_incentives"],
+    "difficulty_elo": 1150,
+    "domain": "Civic & Urban Policy",
+    "register_tags": { "formal": "Parameter Tweaking (#12) vs. Rule Change (#5)", "intuitive": "Pushing on a String" },
+    "prompt_instruction": "A council’s five-point litter plan. Click the only proposal that changes the structure rather than a number.",
+    "passage_segments": [
+      { "id": "s1", "text": "Raise the littering fine from £100 to £150.", "system_role": "parameter_tweak" },
+      { "id": "s2", "text": "Increase the street-cleaning budget by 8%.", "system_role": "parameter_tweak" },
+      { "id": "s3", "text": "Extend bin collections to 10 p.m.", "system_role": "parameter_tweak" },
+      { "id": "s4", "text": "Require takeaway outlets to run a deposit-return scheme on their packaging, so customers get money back when they bring it back.", "system_role": "structural_rule" },
+      { "id": "s5", "text": "Widen the fixed-penalty rules to cover smaller items such as cigarette ends.", "system_role": "parameter_tweak" }
+    ],
+    "correct_target_id": "s4",
+    "follow_up_question": {
+      "question": "Why are the other four weak?",
+      "options": [
+        { "id": "o1", "text": "They adjust numbers in loops that already exist; nobody’s reason to drop litter changes.", "is_correct": true, "feedback": "Yes. A deposit makes the packaging worth something to whoever holds it, which changes the payoff of dropping it." },
+        { "id": "o2", "text": "They are too expensive.", "is_correct": false, "feedback": "Cost isn’t the issue. Even free, they leave the structure alone." },
+        { "id": "o3", "text": "They are too small: doubling each would work.", "is_correct": false, "feedback": "Bigger numbers on the same structure tend to hit diminishing returns." },
+        { "id": "o4", "text": "They are fine; the deposit scheme is just extra.", "is_correct": false, "feedback": "Meadows’ point is that parameter changes rarely change behaviour, and they’re where most effort goes." }
+      ]
+    },
+    "explanation_formal": "Fines, budgets, hours and thresholds are parameters (#12): they tune the strength of existing loops. A deposit-return requirement changes the incentive structure (#5): the discarded object now carries value, creating a new collection loop that doesn’t depend on enforcement.",
+    "explanation_intuitive": "Four of these turn dials. One rewires: once a cup is worth 20p, someone will pick it up."
+  },
+  {
+    "id": "sys_w4_triage_cloudbill",
+    "tier": "deterministic",
+    "drill_type": "leverage_triage",
+    "taxonomy_nodes": ["leverage_information_flows", "archetype_tragedy_commons", "posiwid"],
+    "difficulty_elo": 1350,
+    "domain": "Software Maintenance",
+    "register_tags": { "formal": "Information Flow Rewiring (#6)", "intuitive": "Put the Meter Where They Can See It" },
+    "prompt_instruction": "Triage the chronic problem in three steps: archetype, real output, highest-leverage fix.",
+    "passage_segments": [
+      { "id": "s1", "text": "Calder’s cloud bill has grown 60% a year for three years.", "system_role": "chronic_symptom" },
+      { "id": "s2", "text": "Engineers can start servers with one click; the bill goes to finance, which sees it once a month as a single total.", "system_role": "decoupled_feedback" },
+      { "id": "s3", "text": "Each year finance demands a 10% cut, which engineers meet by deleting a few test servers just before quarter end.", "system_role": "parameter_fix" },
+      { "id": "s4", "text": "Many idle servers run for months because nobody who started them knows they’re still running, or what they cost.", "system_role": "missing_information" }
+    ],
+    "steps": [
+      {
+        "id": "t1", "label": "Archetype",
+        "question": "Which archetype is running?",
+        "options": [
+          { "id": "a", "text": "Tragedy of the Commons", "is_correct": true, "feedback": "Yes. A shared budget, individual convenience, and a cost nobody using it feels." },
+          { "id": "b", "text": "Escalation", "is_correct": false, "feedback": "There’s no rivalry here." },
+          { "id": "c", "text": "Eroding Goals", "is_correct": false, "feedback": "The cost target isn’t being lowered; it’s being ignored." },
+          { "id": "d", "text": "Success to the Successful", "is_correct": false, "feedback": "No team is winning resources because of past success." }
+        ]
+      },
+      {
+        "id": "t2", "label": "POSIWID",
+        "question": "Judging by its reliable output, what does this system produce?",
+        "options": [
+          { "id": "a", "text": "Maximum engineering convenience, with the cost hidden from the people incurring it.", "is_correct": true, "feedback": "That’s its steady output." },
+          { "id": "b", "text": "Cost control.", "is_correct": false, "feedback": "The bill grows 60% a year." },
+          { "id": "c", "text": "Waste on purpose.", "is_correct": false, "feedback": "Nobody intends it. POSIWID describes the output, not intent." },
+          { "id": "d", "text": "Careful capacity planning.", "is_correct": false, "feedback": "Idle servers running for months say otherwise." }
+        ]
+      },
+      {
+        "id": "t3", "label": "Leverage",
+        "question": "Which intervention has the highest leverage?",
+        "options": [
+          { "id": "a", "text": "Demand a 20% cut this year.", "is_correct": false, "feedback": "A bigger number (#12) on the same ritual of deleting test servers before quarter end.", "leverage_point": 12 },
+          { "id": "b", "text": "Pre-buy a larger block of discounted capacity.", "is_correct": false, "feedback": "A bigger buffer (#11) at a lower price. The waste continues, only cheaper.", "leverage_point": 11 },
+          { "id": "c", "text": "Send finance the bill weekly instead of monthly.", "is_correct": false, "feedback": "Shortens a delay (#9), but the signal still goes to people who don’t start servers.", "leverage_point": 9 },
+          { "id": "d", "text": "Show every engineer, in the console, the running cost of each server they own, updated hourly.", "is_correct": true, "feedback": "Routes the feedback to the decision-makers (#6). People who never saw the cost now see it at the moment they decide.", "leverage_point": 6 }
+        ]
+      }
+    ],
+    "explanation_formal": "The decision loop (start or keep a server) is open: its cost consequence flows to a different actor on a long delay. Restoring the missing information link to the decision-maker closes the balancing loop without changing rules or prices.",
+    "explanation_intuitive": "People leave lights on when someone else pays the bill and they never see the meter. Put the meter in front of them."
+  },
+  {
+    "id": "sys_w4_triage_viral",
+    "tier": "deterministic",
+    "drill_type": "leverage_triage",
+    "taxonomy_nodes": ["leverage_loop_engineering", "reinforcing_vs_balancing", "posiwid"],
+    "difficulty_elo": 1450,
+    "domain": "Everyday Human & Social Systems",
+    "register_tags": { "formal": "Reducing Reinforcing-Loop Gain (#7)", "intuitive": "Brakes on the Snowball" },
+    "prompt_instruction": "Triage the chronic problem in three steps: dominant structure, real output, highest-leverage fix.",
+    "passage_segments": [
+      { "id": "s1", "text": "On the Chirp platform, posts that provoke outrage get shared fastest.", "system_role": "reinforcing_driver" },
+      { "id": "s2", "text": "Each share shows the post to new users, some of whom share it again, so a false claim can reach millions within hours.", "system_role": "reinforcing_loop" },
+      { "id": "s3", "text": "Fact-checkers label false posts, but labels typically arrive two days later, after most of the sharing is over.", "system_role": "delayed_balancing_loop" },
+      { "id": "s4", "text": "The platform’s response so far has been to hire 200 more moderators.", "system_role": "parameter_fix" }
+    ],
+    "steps": [
+      {
+        "id": "t1", "label": "Diagnosis",
+        "question": "Which structure dominates?",
+        "options": [
+          { "id": "a", "text": "A fast reinforcing loop outrunning a slow balancing loop.", "is_correct": true, "feedback": "Yes. Sharing compounds in hours; correction arrives in days." },
+          { "id": "b", "text": "A tragedy of the commons.", "is_correct": false, "feedback": "Attention is shared, but the mechanism here is speed: compounding versus correcting." },
+          { "id": "c", "text": "Eroding goals.", "is_correct": false, "feedback": "No standard is being lowered in the passage." },
+          { "id": "d", "text": "A bathtub with no drain.", "is_correct": false, "feedback": "There is a drain (labels); it’s just too slow." }
+        ]
+      },
+      {
+        "id": "t2", "label": "POSIWID",
+        "question": "Judging by its reliable output, what does the platform do?",
+        "options": [
+          { "id": "a", "text": "Spread whatever provokes the most sharing, true or not.", "is_correct": true, "feedback": "That’s what it reliably produces." },
+          { "id": "b", "text": "Inform people.", "is_correct": false, "feedback": "Stated purpose; not the output for false-but-outrageous posts." },
+          { "id": "c", "text": "Moderate content.", "is_correct": false, "feedback": "Moderation is real but too slow to shape the outcome." },
+          { "id": "d", "text": "Spread misinformation deliberately.", "is_correct": false, "feedback": "POSIWID doesn’t assume intent." }
+        ]
+      },
+      {
+        "id": "t3", "label": "Leverage",
+        "question": "Which intervention has the highest leverage?",
+        "options": [
+          { "id": "a", "text": "Hire 400 more moderators.", "is_correct": false, "feedback": "A bigger number (#12) on a loop that is already losing the race.", "leverage_point": 12 },
+          { "id": "b", "text": "Cap each user at 50 posts a day.", "is_correct": false, "feedback": "A parameter (#12) that barely touches resharing.", "leverage_point": 12 },
+          { "id": "c", "text": "Speed up fact-checking so labels arrive within a day.", "is_correct": false, "feedback": "Shortening the delay (#9) helps, but the snowball still moves faster than the brake.", "leverage_point": 9 },
+          { "id": "d", "text": "Add friction to fast resharing: posts spreading from strangers need a click-through before they can be passed on, and chains are limited in length.", "is_correct": true, "feedback": "Directly lowers the gain of the reinforcing loop (#7), so the balancing loop has time to act.", "leverage_point": 7 }
+        ]
+      }
+    ],
+    "explanation_formal": "When a reinforcing loop’s doubling time is far shorter than the corrective balancing loop’s delay, the reinforcing loop dominates. Reducing its gain (friction, circuit-breakers) is Meadows’ #7, and it changes which loop dominates rather than tuning either one’s parameters.",
+    "explanation_intuitive": "You can’t catch a snowball rolling downhill by running faster. Make the hill less steep."
+  },
+  {
+    "id": "sys_w4_triage_fishery",
+    "tier": "deterministic",
+    "drill_type": "leverage_triage",
+    "taxonomy_nodes": ["leverage_rules_incentives", "archetype_tragedy_commons", "posiwid"],
+    "difficulty_elo": 1400,
+    "domain": "Ecological & Resource Systems",
+    "register_tags": { "formal": "Rules & Property Rights (#5)", "intuitive": "Change Who Owns the Uncaught Fish" },
+    "prompt_instruction": "Triage the chronic problem in three steps: archetype, real output, highest-leverage fix.",
+    "passage_segments": [
+      { "id": "s1", "text": "The Westbay cod fishery is open to any licensed boat.", "system_role": "open_access" },
+      { "id": "s2", "text": "To protect stocks, the authority cut the season from 120 days to 40.", "system_role": "parameter_fix" },
+      { "id": "s3", "text": "Boats responded with bigger engines and nets and fished around the clock, so the catch barely fell, and crews took more risks in bad weather.", "system_role": "race_to_fish" },
+      { "id": "s4", "text": "Cod stocks are still falling.", "system_role": "depletion" }
+    ],
+    "steps": [
+      {
+        "id": "t1", "label": "Archetype",
+        "question": "Which archetype is running?",
+        "options": [
+          { "id": "a", "text": "Tragedy of the Commons", "is_correct": true, "feedback": "Yes. Any fish one boat leaves is caught by another, so every boat races to take what it can." },
+          { "id": "b", "text": "Escalation", "is_correct": false, "feedback": "There is a race, but it’s a race for a shared stock. The commons is the defining structure." },
+          { "id": "c", "text": "Eroding Goals", "is_correct": false, "feedback": "The authority hasn’t lowered its goal." },
+          { "id": "d", "text": "Shifting the Burden", "is_correct": false, "feedback": "No fundamental capacity is being atrophied by a quick fix." }
+        ]
+      },
+      {
+        "id": "t2", "label": "POSIWID",
+        "question": "Judging by its reliable output, what does this fishery produce?",
+        "options": [
+          { "id": "a", "text": "A race to catch the fish before someone else does.", "is_correct": true, "feedback": "Yes. A shorter season only made the race more intense." },
+          { "id": "b", "text": "Conservation.", "is_correct": false, "feedback": "Stocks keep falling." },
+          { "id": "c", "text": "Safe, steady livelihoods.", "is_correct": false, "feedback": "Crews now take more risks for the same catch." },
+          { "id": "d", "text": "Lower catches.", "is_correct": false, "feedback": "The catch barely fell." }
+        ]
+      },
+      {
+        "id": "t3", "label": "Leverage",
+        "question": "Which intervention has the highest leverage?",
+        "options": [
+          { "id": "a", "text": "Cut the season again, to 20 days.", "is_correct": false, "feedback": "The same parameter (#12), and the same response: a faster race.", "leverage_point": 12 },
+          { "id": "b", "text": "Restock the bay from a hatchery.", "is_correct": false, "feedback": "Topping up the stock (#11) feeds the same race.", "leverage_point": 11 },
+          { "id": "c", "text": "Publish live stock assessments to every skipper.", "is_correct": false, "feedback": "Good information (#6), but it doesn’t change the incentive to race.", "leverage_point": 6 },
+          { "id": "d", "text": "Give each boat, or each fishing community, a secure, long-term share of the total allowable catch, so a fish left in the sea is still theirs next year.", "is_correct": true, "feedback": "Changes the rules (#5): there’s no longer a reward for racing. Ostrom’s work shows community-run rules can achieve this too.", "leverage_point": 5 }
+        ]
+      }
+    ],
+    "explanation_formal": "Under open access, each harvester’s reinforcing loop (catch more → earn more → invest in capacity) draws on a common stock. Season limits leave the race intact and often intensify it (a “derby” fishery). Secure harvest rights or community governance change the payoff structure so that conservation benefits the conserver.",
+    "explanation_intuitive": "If the fish you leave goes to someone else, you won’t leave any. Make it yours next year and leaving it becomes saving."
+  },
+  {
+    "id": "sys_w4_triage_porkcycle",
+    "tier": "deterministic",
+    "drill_type": "leverage_triage",
+    "taxonomy_nodes": ["leverage_physical_temporal", "delays_oscillation"],
+    "difficulty_elo": 1350,
+    "domain": "Macroeconomics & Markets",
+    "register_tags": { "formal": "Buffer Stocks Against Delayed Oscillation (#11)", "intuitive": "A Bigger Tank Smooths the Swings" },
+    "prompt_instruction": "Triage the chronic problem in three steps: structure, real output, highest-leverage fix among these options.",
+    "passage_segments": [
+      { "id": "s1", "text": "Pig farmers decide how many sows to breed based on today’s pork price.", "system_role": "decision_rule" },
+      { "id": "s2", "text": "It takes about ten months from breeding to a pig ready for market.", "system_role": "material_delay" },
+      { "id": "s3", "text": "When prices are high, everyone breeds more; ten months later a glut crashes the price, so everyone cuts back, and a shortage sends prices soaring again.", "system_role": "oscillation" }
+    ],
+    "steps": [
+      {
+        "id": "t1", "label": "Diagnosis",
+        "question": "What structure produces the swings?",
+        "options": [
+          { "id": "a", "text": "A balancing loop acting through a long delay.", "is_correct": true, "feedback": "Yes: the shower overshoot, with pigs. Economists call it the hog cycle." },
+          { "id": "b", "text": "A reinforcing loop.", "is_correct": false, "feedback": "Nothing runs away in one direction; prices swing back and forth." },
+          { "id": "c", "text": "Tragedy of the commons.", "is_correct": false, "feedback": "No shared resource is being depleted." },
+          { "id": "d", "text": "Random demand shocks.", "is_correct": false, "feedback": "The cycle repeats with steady demand. It comes from the structure." }
+        ]
+      },
+      {
+        "id": "t2", "label": "POSIWID",
+        "question": "Judging by its reliable output, what does this market produce?",
+        "options": [
+          { "id": "a", "text": "A regular boom-and-bust price cycle.", "is_correct": true, "feedback": "That’s its signature output." },
+          { "id": "b", "text": "Stable prices.", "is_correct": false, "feedback": "The opposite." },
+          { "id": "c", "text": "Steady farm incomes.", "is_correct": false, "feedback": "Incomes swing with the cycle." },
+          { "id": "d", "text": "Shortages only.", "is_correct": false, "feedback": "Gluts and shortages alternate." }
+        ]
+      },
+      {
+        "id": "t3", "label": "Leverage",
+        "question": "Of these options, which has the highest leverage?",
+        "options": [
+          { "id": "a", "text": "Guarantee farmers a minimum price.", "is_correct": false, "feedback": "A parameter (#12). It can encourage overbreeding in gluts.", "leverage_point": 12 },
+          { "id": "b", "text": "Cap herd size on each farm.", "is_correct": false, "feedback": "A quota (#12). It doesn’t address the delay behind the swings.", "leverage_point": 12 },
+          { "id": "c", "text": "Run a public cold-storage reserve that buys pork in gluts and sells it in shortages.", "is_correct": true, "feedback": "A buffer (#11) that absorbs the overshoot on both sides of the cycle.", "leverage_point": 11 },
+          { "id": "d", "text": "Tax pork more heavily in boom years.", "is_correct": false, "feedback": "A rate tweak (#12) that acts after the breeding decisions are already made.", "leverage_point": 12 }
+        ]
+      }
+    ],
+    "explanation_formal": "The hog cycle is a delayed balancing loop: supply decisions respond to current price, but supply arrives after a production lag, producing overshoot. A buffer stock (#11) decouples consumption from production timing and damps the oscillation. Note: within this option set; better information on breeding herds (#6) could do more.",
+    "explanation_intuitive": "Farmers steer by today’s price and the pigs arrive ten months late. A big freezer that fills in gluts and empties in shortages smooths the swings."
+  }
+]
